@@ -1,0 +1,25 @@
+.authWrapper {
+  width: 100%;
+  max-width: 40rem;
+  display: block;
+  border: 1px black solid;
+  margin: 4rem auto 6rem;
+}
+
+.authWrapper .wrapper {
+  padding: 10px;
+}
+
+.authWrapper .wrapper h2 {
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1;
+  font-size: 2.2rem;
+  font-weight: 400;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin: 0 auto 3rem;
+  padding: 0;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,45 @@
+html {
+  font-size: 10px;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+html,
+body,
+#root,
+.App,
+.fullheight {
+  height: 100vh;
+}
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.8rem;
+  line-height: 1;
+  font-weight: 400;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+a,
+a:hover {
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+}
+.main {
+  max-width: 1280px;
+  padding: 0 10px;
+  margin: 0 auto;
+  width: 100%;
+  height: calc(100% - 6.5rem);
+}
