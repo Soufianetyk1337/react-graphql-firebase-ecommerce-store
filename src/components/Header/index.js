@@ -1,15 +1,20 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import "./styles.scss";
 import brandLogo from "./../../assets/clothing-brand-logo.jpg";
 import { Link } from "react-router-dom";
-import { auth } from "./../../firebase/utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { onSignOutUserStart } from "../../redux/User/userSagas";
+import { auth } from "../../firebase/utils";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
 });
 function Header() {
   const { currentUser } = useSelector(mapState);
+  const dispatch = useDispatch();
+  // const signOut = () => dispatch(onSignOutUserStart());
+
   return (
     <header className="header">
       <div className="wrapper">
@@ -25,7 +30,13 @@ function Header() {
                 <Link to="/dashboard">My Account</Link>
               </li>
               <li>
-                <span onClick={() => auth.signOut()}>Logout</span>
+                <span
+                  onClick={() => {
+                    auth.signOut();
+                  }}
+                >
+                  Logout
+                </span>
               </li>
             </ul>
           )}

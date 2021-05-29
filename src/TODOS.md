@@ -3,6 +3,7 @@ Bugs
 // Redirect user if his logged In.
 // Fix displayName: null when user is logged In
 // Fix redirect user after signin up with Google
+// Fix Logout using redux-saga watcher
 
 Features
 // [x] Creating Folder Structure

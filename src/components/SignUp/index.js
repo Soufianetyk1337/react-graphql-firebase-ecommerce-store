@@ -1,18 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "./style.scss";
 import Button from "./../../components/Forms/Button";
 import FormInput from "./../../components/Forms/FormInput";
 import { useEffect, useState } from "react";
 import AuthWrapper from "../AuthWrapper";
-import { withRouter } from "react-router-dom";
-import { resetAllAuthForms, signUpUser } from "../../redux/User/userActions";
+import { useHistory } from "react-router-dom";
+import { signUpUser } from "../../redux/User/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const mapState = ({ user }) => ({
-  signUpSuccess: user.signUpSuccess,
-  signUpError: user.signUpError,
+  currentUser: user.currentUser,
+  userError: user.userError,
 });
 function SignUp(props) {
-  const { signUpError, signUpSuccess } = useSelector(mapState);
+  const { userError, currentUser } = useSelector(mapState);
   const handleFormSubmit = (e) => {
     e.preventDefault();
     dispatch(signUpUser({ ...initialState }));
@@ -46,12 +47,14 @@ function SignUp(props) {
     //     confirmPassword: "",
     //     errors: [],
     //   });
-    //   props.history.push("/");
+    //   history.push("/");
     // } catch (error) {
     //   console.error(`error`, error);
     // }
   };
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const [initialState, setInitialState] = useState({
     displayName: "",
     email: "",
@@ -68,7 +71,7 @@ function SignUp(props) {
   };
 
   useEffect(() => {
-    if (signUpSuccess) {
+    if (currentUser) {
       setInitialState({
         ...initialState,
         displayName: "",
@@ -77,19 +80,18 @@ function SignUp(props) {
         confirmPassword: "",
         errors: [],
       });
-      dispatch(resetAllAuthForms());
-      props.history.push("/");
+      history.push("/");
     }
-  }, [signUpSuccess, initialState, props.history, dispatch]);
+  }, [currentUser, initialState, history, dispatch]);
 
   useEffect(() => {
-    if (Array.isArray(signUpError) && signUpError.length > 0) {
+    if (Array.isArray(userError) && userError.length > 0) {
       setInitialState({
         ...initialState,
-        errors: signUpError,
+        errors: userError,
       });
     }
-  }, [signUpError, initialState]);
+  }, [userError]);
   return (
     <AuthWrapper headline="Sign Up">
       {initialState.errors.length > 0 && (
@@ -136,4 +138,4 @@ function SignUp(props) {
   );
 }
 
-export default withRouter(SignUp);
+export default SignUp;

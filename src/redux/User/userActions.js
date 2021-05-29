@@ -101,8 +101,8 @@ export const checkUserSession = () => ({
   type: userTypes.CHECK_USER_SESSION,
 });
 
-export const signOutUser = () => ({
-  type: userTypes.SIGN_OUT_USER,
+export const signOutUserStart = () => ({
+  type: userTypes.SIGN_OUT_USER_START,
 });
 
 export const signOutUserSuccess = () => ({
@@ -119,6 +119,20 @@ export const signUpUser = (userCredentials) => ({
 });
 
 export const userError = (error) => ({
-  type: userTypes.userError,
+  type: userTypes.USER_ERROR,
   payload: error,
+});
+
+export const resetPasswordStart = (userCredentials) => ({
+  type: userTypes.RESET_PASSWORD_START,
+  payload: userCredentials,
+});
+
+export const resetPasswordSuccess = () => ({
+  type: userTypes.RESET_PASSWORD_SUCCESS,
+  payload: true,
+});
+
+export const resetUserState = () => ({
+  type: userTypes.RESET_USER_STATE,
 });

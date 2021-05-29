@@ -7,7 +7,13 @@ import {
   handleUserProfile,
   googleProvider,
 } from "../../firebase/utils";
-import { signInSuccess, signOutUserSuccess, userError } from "./userActions";
+import {
+  signInSuccess,
+  signOutUserSuccess,
+  userError,
+  resetPasswordSuccess,
+} from "./userActions";
+import { handleResetPassword } from "./userHelpers";
 
 // eslint-disable-next-line require-yield
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
@@ -53,15 +59,18 @@ export function* onCheckUserSession() {
   yield takeLatest(userTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 export function* signOutUser() {
+  console.log(`Worker Executed`);
   try {
     yield auth.signOut();
-    yield put(signOutUser());
+    console.log("signOut Executed");
+    yield put(signOutUserSuccess());
+    console.log(`Action Dispathced`);
   } catch (error) {
     console.error(error);
   }
 }
-export function* onSignOutUser() {
-  yield takeLatest(userTypes.SIGN_OUT_USER, signOutUser);
+export function* onSignOutUserStart() {
+  yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
 export function* googleSignIn() {
   try {
@@ -95,6 +104,17 @@ export function* signUpUser({
     console.error(`error`, error);
   }
 }
+export function* resetPassword({ payload: { email } }) {
+  try {
+    yield call(handleResetPassword, email);
+    yield put(resetPasswordSuccess());
+  } catch (error) {
+    yield put(userError(error));
+  }
+}
+export function* onResetPasswordStart() {
+  yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
+}
 export function* onSignUpUser() {
   yield takeLatest(userTypes.SIGN_UP_USER, signUpUser);
 }
@@ -103,8 +123,9 @@ export default function* userSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onCheckUserSession),
-    call(onSignOutUser),
+    call(onSignOutUserStart),
     call(onGoogleSignInStart),
     call(onSignUpUser),
+    call(onResetPasswordStart),
   ]);
 }

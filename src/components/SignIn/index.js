@@ -4,12 +4,13 @@ import "./style.scss";
 import Button from "./../Forms/Button";
 import FormInput from "./../../components/Forms/FormInput";
 import AuthWrapper from "./../AuthWrapper";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   resetAllAuthForms,
   signInUser,
   signInWithGoogle,
   emailSignInStart,
+  googleSignInStart,
 } from "../../redux/User/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,6 +24,8 @@ function SignIn(props) {
   };
   const { currentUser } = useSelector(mapState);
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,14 +33,13 @@ function SignIn(props) {
     if (currentUser) {
       setPassword("");
       setEmail("");
-      props.history.push("/");
+      history.push("/");
     }
     return () => {};
-  }, [currentUser, props.history, dispatch]);
+  }, [currentUser, history, dispatch]);
   const handeGoogleSignIn = () => {
-    dispatch(signInWithGoogle());
+    dispatch(googleSignInStart());
   };
-  console.log(`currentUser`, currentUser);
   return (
     <AuthWrapper headline="Sign In">
       <div className="formWrapper">
@@ -71,4 +73,4 @@ function SignIn(props) {
   );
 }
 
-export default withRouter(SignIn);
+export default SignIn;

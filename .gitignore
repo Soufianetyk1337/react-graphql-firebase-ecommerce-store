@@ -2,8 +2,8 @@
 
 # dependencies
 /node_modules
-/src/redux
-/src/firebase
+
+/src/firebase/config.js
 /.pnp
 .pnp.js
 
