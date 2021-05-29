@@ -2,17 +2,20 @@
 import "./default.scss";
 import { Route, Switch } from "react-router-dom";
 import Registration from "./pages/Registration";
-import { auth, handleUserProfile } from "./firebase/utils";
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 import Dashboard from "./pages/Dashboard";
 import { useEffect } from "react";
 import Recovery from "./pages/Recovery";
 import { checkUserSession, setCurrentUser } from "./redux/User/userActions";
 import { useDispatch } from "react-redux";
 import WithAuth from "./HoC/withAuth";
+import WithAdmin from "./HoC/withAdmin";
+import AdminToolbar from "./components/AdminToolbar";
+
 function App(props) {
   const dispatch = useDispatch();
   // useEffect(() => {
@@ -42,6 +45,7 @@ function App(props) {
   }, [dispatch]);
   return (
     <div className="App">
+      <AdminToolbar />
       <Switch>
         <Route
           path="/"
@@ -84,6 +88,16 @@ function App(props) {
                 <Dashboard />
               </MainLayout>
             </WithAuth>
+          )}
+        />
+        <Route
+          path="/admin"
+          render={() => (
+            <WithAdmin>
+              <MainLayout>
+                <Admin />
+              </MainLayout>
+            </WithAdmin>
           )}
         />
       </Switch>
