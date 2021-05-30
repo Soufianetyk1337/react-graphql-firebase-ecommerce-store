@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import WithAuth from "./HoC/withAuth";
 import WithAdmin from "./HoC/withAdmin";
 import AdminToolbar from "./components/AdminToolbar";
+import Search from "./pages/Search";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -54,6 +55,15 @@ function App(props) {
             <HomepageLayout>
               <Homepage />
             </HomepageLayout>
+          )}
+        />
+        <Route
+          path="/search"
+          exact
+          render={() => (
+            <MainLayout>
+              <Search />
+            </MainLayout>
           )}
         />
         <Route

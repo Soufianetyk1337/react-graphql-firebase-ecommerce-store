@@ -1,0 +1,22 @@
+.products {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 2rem 0;
+}
+.product {
+  width: 33.3333333%;
+  margin: 0 auto 2rem;
+  padding: 0 10px;
+  height: 55rem;
+  float: left;
+  .thumbnail {
+    display: block;
+    width: 100%;
+    img {
+      display: block;
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
