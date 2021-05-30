@@ -1,5 +1,5 @@
 import React from "react";
-
+import Button from "../../Forms/Button";
 function Product({
   productPrice,
   productThumbnail,
@@ -8,6 +8,9 @@ function Product({
 }) {
   if (!productThumbnail || !productName || typeof productPrice === "undefined")
     return null;
+  const addToCartProps = {
+    type: "button",
+  };
   return (
     <div className="product">
       <div className="thumbnail">
@@ -16,10 +19,13 @@ function Product({
       <div className="details">
         <ul>
           <li key={productIndex}>
-            <span>{productName}</span>
+            <span className="productName">{productName}</span>
           </li>
-          <li key={productIndex}>
-            <span>{productPrice}</span>
+          <li key={productIndex + 1}>
+            <span className="productPrice">${productPrice}</span>
+          </li>
+          <li>
+            <Button {...addToCartProps}>Add to cart</Button>
           </li>
         </ul>
       </div>
