@@ -6,7 +6,7 @@ import Modal from "./../../components/Modal";
 import FormInput from "./../../components/Forms/FormInput";
 import FormSelect from "./../../components/Forms/FormSelect";
 import Button from "./../../components/Forms/Button";
-
+import LoadMore from "./../../components/LoadMore";
 import "./style.scss";
 import {
   addProductStart,
@@ -62,7 +62,17 @@ const Admin = (props) => {
     );
     resetForm();
   };
-
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        offset: queryDoc,
+        previousProducts: data,
+      })
+    );
+  };
+  const loadMoreProps = {
+    onLoadMore: handleLoadMore,
+  };
   return (
     <div className="admin">
       <div className="callToActions">
@@ -141,9 +151,9 @@ const Admin = (props) => {
                   cellSpacing="0"
                 >
                   <tbody>
-                    {Array.isArray(products) &&
-                      products.length > 0 &&
-                      products.map((product, index) => {
+                    {Array.isArray(data) &&
+                      data.length > 0 &&
+                      data.map((product, index) => {
                         const {
                           productName,
                           productThumbnail,
@@ -187,6 +197,17 @@ const Admin = (props) => {
                   <tbody>
                     <tr>
                       <td>{!isLastPage}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table border="0" cellPadding="10" cellSpacing="0">
+                  <tbody>
+                    <tr>
+                      <td>{!isLastPage && <LoadMore {...loadMoreProps} />}</td>
                     </tr>
                   </tbody>
                 </table>

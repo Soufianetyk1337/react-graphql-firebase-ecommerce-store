@@ -7,6 +7,7 @@ import FormSelect from "./../../components/Forms/FormSelect";
 
 import "./style.scss";
 import { useHistory, useParams } from "react-router-dom";
+import LoadMore from "../LoadMore";
 const mapState = ({ product }) => ({
   products: product.products,
 });
@@ -15,12 +16,12 @@ function ProductsResults() {
   const dispatch = useDispatch();
   const { filterType } = useParams();
   const history = useHistory();
-
+  const { data, queryDoc, isLastPage } = products;
   useEffect(() => {
     dispatch(fetchProductsStart({ filterType }));
   }, [filterType]);
-  if (!Array.isArray(products)) return "Products in not an Array";
-  if (products.length < 1) {
+  if (!Array.isArray(data)) return "Products in not an Array";
+  if (data.length < 1) {
     return (
       <div className="products">
         <p>No Search Results</p>
@@ -50,12 +51,24 @@ function ProductsResults() {
     ],
     handleChange: handleFilter,
   };
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProductsStart({
+        filterType,
+        offset: queryDoc,
+        previousProducts: data,
+      })
+    );
+  };
+  const loadMoreProps = {
+    onLoadMore: handleLoadMore,
+  };
   return (
     <div className="products">
       <h1>Browse Products</h1>
       <FormSelect {...filterProps} />
       <div className="productsResults">
-        {products.map((product, index) => {
+        {data.map((product, index) => {
           const { productPrice, productThumbnail, productName } = product;
           if (
             !productThumbnail ||
@@ -72,6 +85,7 @@ function ProductsResults() {
           return <Product {...productProps} />;
         })}
       </div>
+      {!isLastPage && <LoadMore {...loadMoreProps} />}
     </div>
   );
 }
