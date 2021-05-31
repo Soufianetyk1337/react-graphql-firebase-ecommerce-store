@@ -22,12 +22,16 @@ function ProductCardDetails() {
     productAdminUserUID,
     productThumbnail,
     productPrice,
+    productDesc,
   } = product;
   const addToCartProps = {
     type: "button",
   };
   useEffect(() => {
     dispatch(fetchSingleProductStart(productId));
+    return () => {
+      dispatch(setProduct({}));
+    };
   }, []);
   return (
     <div className="productCard">
@@ -46,6 +50,9 @@ function ProductCardDetails() {
             <div className="addToCart">
               <Button {...addToCartProps}>Add To Cart</Button>
             </div>
+          </li>
+          <li>
+            <span dangerouslySetInnerHTML={{ __html: productDesc }}></span>
           </li>
         </ul>
       </div>

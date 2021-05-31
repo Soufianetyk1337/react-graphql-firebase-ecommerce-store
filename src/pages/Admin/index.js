@@ -8,6 +8,7 @@ import FormSelect from "./../../components/Forms/FormSelect";
 import Button from "./../../components/Forms/Button";
 import LoadMore from "./../../components/LoadMore";
 import "./style.scss";
+import CKEditor from "ckeditor4-react";
 import {
   addProductStart,
   deleteProductsStart,
@@ -17,7 +18,6 @@ import {
 const mapState = ({ product }) => ({
   products: product.products,
 });
-
 const Admin = (props) => {
   const { products } = useSelector(mapState);
   const dispatch = useDispatch();
@@ -58,6 +58,7 @@ const Admin = (props) => {
         productName,
         productThumbnail,
         productPrice,
+        productDesc,
       })
     );
     resetForm();
@@ -125,6 +126,9 @@ const Admin = (props) => {
               step="0.01"
               value={productPrice}
               handleChange={(e) => setProductPrice(e.target.value)}
+            />
+            <CKEditor
+              onChange={(event) => setProductDesc(event.editor.getData())}
             />
 
             <br />
