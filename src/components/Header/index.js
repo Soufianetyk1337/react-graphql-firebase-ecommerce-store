@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onSignOutUserStart } from "../../redux/User/userSagas";
 import { auth } from "../../firebase/utils";
-
-const mapState = ({ user }) => ({
-  currentUser: user.currentUser,
+import { selectCartItemsQuantity } from "./../../redux/Cart/cartSelectors";
+const mapState = (state) => ({
+  currentUser: state.user.currentUser,
+  totalQuantity: selectCartItemsQuantity(state),
 });
 function Header() {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, totalQuantity } = useSelector(mapState);
   const dispatch = useDispatch();
   // const signOut = () => dispatch(onSignOutUserStart());
 
@@ -34,11 +35,16 @@ function Header() {
           </ul>
         </nav>
         <div className="callToActions">
-          {currentUser && (
-            <ul>
+          <ul>
+            <li>
+              <Link>Your Cart ({totalQuantity})</Link>
+            </li>
+          </ul>
+          <ul>
+            {currentUser && [
               <li>
                 <Link to="/dashboard">My Account</Link>
-              </li>
+              </li>,
               <li>
                 <span
                   onClick={() => {
@@ -47,19 +53,17 @@ function Header() {
                 >
                   Logout
                 </span>
-              </li>
-            </ul>
-          )}
-          {!currentUser && (
-            <ul>
+              </li>,
+            ]}
+            {!currentUser && [
               <li>
                 <Link to="/registration">Register</Link>
-              </li>
+              </li>,
               <li>
                 <Link to="/login">Login</Link>
-              </li>
-            </ul>
-          )}
+              </li>,
+            ]}
+          </ul>
         </div>
       </div>
     </header>
