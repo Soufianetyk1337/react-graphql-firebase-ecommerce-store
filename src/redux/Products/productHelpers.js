@@ -57,3 +57,16 @@ export const handleProductDelete = (documentID) => {
       .catch((error) => reject(error));
   });
 };
+
+export const handleFetchProduct = (productId) => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("products")
+      .doc(productId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) resolve(snapshot.data());
+      })
+      .catch((error) => reject(error));
+  });
+};

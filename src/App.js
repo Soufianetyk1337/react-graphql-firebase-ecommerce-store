@@ -16,6 +16,7 @@ import WithAuth from "./HoC/withAuth";
 import WithAdmin from "./HoC/withAdmin";
 import AdminToolbar from "./components/AdminToolbar";
 import Search from "./pages/Search";
+import ProductDetails from "./pages/ProductDetails";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -72,6 +73,15 @@ function App(props) {
           render={() => (
             <MainLayout>
               <Search />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/product/:productId"
+          exact
+          render={() => (
+            <MainLayout>
+              <ProductDetails />
             </MainLayout>
           )}
         />

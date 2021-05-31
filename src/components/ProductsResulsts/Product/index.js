@@ -1,12 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "../../Forms/Button";
 function Product({
   productPrice,
   productThumbnail,
   productName,
-  productIndex,
+  documentId: productId,
 }) {
-  if (!productThumbnail || !productName || typeof productPrice === "undefined")
+  if (
+    !productId ||
+    !productThumbnail ||
+    !productName ||
+    typeof productPrice === "undefined"
+  )
     return null;
   const addToCartProps = {
     type: "button",
@@ -14,14 +20,18 @@ function Product({
   return (
     <div className="product">
       <div className="thumbnail">
-        <img src={productThumbnail} alt={productName} srcset="" />
+        <Link to={`/product/${productId}`}>
+          <img src={productThumbnail} alt={productName} srcset="" />
+        </Link>
       </div>
       <div className="details">
         <ul>
-          <li key={productIndex}>
-            <span className="productName">{productName}</span>
+          <li key={productId}>
+            <Link to={`/product/${productId}`}>
+              <span className="productName">{productName}</span>
+            </Link>
           </li>
-          <li key={productIndex + 1}>
+          <li key={productId + 1}>
             <span className="productPrice">${productPrice}</span>
           </li>
           <li>

@@ -77,10 +77,7 @@ function ProductsResults() {
           )
             return null;
           const productProps = {
-            productPrice,
-            productThumbnail,
-            productName,
-            productIndex: index,
+            ...product,
           };
           return <Product {...productProps} />;
         })}
