@@ -1,12 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { addToCart } from "../../../redux/Cart/cartActions";
 import Button from "../../Forms/Button";
-function Product({
-  productPrice,
-  productThumbnail,
-  productName,
-  documentId: productId,
-}) {
+function Product(product) {
+  const {
+    productPrice,
+    productThumbnail,
+    productName,
+    documentId: productId,
+  } = product;
   if (
     !productId ||
     !productThumbnail ||
@@ -16,6 +19,17 @@ function Product({
     return null;
   const addToCartProps = {
     type: "button",
+  };
+  const mapState = ({ cartItems }) => ({
+    cartItems: cartItems.cartItems,
+  });
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const dispatch = useDispatch(mapState);
+
+  const handleAddToCart = (product) => {
+    console.log(`Add To Cart`);
+    if (!product) return;
+    dispatch(addToCart(product));
   };
   return (
     <div className="product">
@@ -35,7 +49,12 @@ function Product({
             <span className="productPrice">${productPrice}</span>
           </li>
           <li>
-            <Button {...addToCartProps}>Add to cart</Button>
+            <Button
+              {...addToCartProps}
+              onClick={() => handleAddToCart(product)}
+            >
+              Add to cart
+            </Button>
           </li>
         </ul>
       </div>
