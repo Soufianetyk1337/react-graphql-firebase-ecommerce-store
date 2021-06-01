@@ -37,7 +37,7 @@ function Header() {
         <div className="callToActions">
           <ul>
             <li>
-              <Link>Your Cart ({totalQuantity})</Link>
+              <Link to="/cart">Your Cart ({totalQuantity})</Link>
             </li>
           </ul>
           <ul>
