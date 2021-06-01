@@ -1,17 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectCartItems } from "../../redux/Cart/cartSelectors";
+import {
+  selectCartItems,
+  selectCartTotal,
+} from "../../redux/Cart/cartSelectors";
 import "./style.scss";
 import { createStructuredSelector } from "reselect";
 import Button from "../Forms/Button";
 import Item from "./Item";
+import { useHistory } from "react-router-dom";
 
 const mapState = createStructuredSelector({
   cartItems: selectCartItems,
+  totalPrice: selectCartTotal,
 });
-
 function Checkout() {
-  const { cartItems } = useSelector(mapState);
+  const history = useHistory();
+  const { cartItems, totalPrice } = useSelector(mapState);
+  console.log(`totalPrice`, totalPrice);
   return (
     <div className="checkout">
       <div className="cart">
@@ -50,7 +56,7 @@ function Checkout() {
                 <table align="left" border="0" cellPadding="0" cellSpacing="10">
                   <tr align="left">
                     <td>
-                      <h3>Total:</h3>
+                      <h3>Total:${totalPrice}</h3>
                     </td>
                   </tr>
                   <tr>
@@ -63,7 +69,9 @@ function Checkout() {
                       <tbody>
                         <tr>
                           <td>
-                            <Button>Continue Shopping</Button>
+                            <Button onClick={() => history.goBack()}>
+                              Continue Shopping
+                            </Button>
                           </td>
                           <td>
                             <Button>Checkout</Button>

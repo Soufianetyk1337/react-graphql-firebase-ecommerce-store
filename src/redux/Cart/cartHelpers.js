@@ -22,3 +22,34 @@ export const checkIfItemsExistsInCart = ({
     { ...nextCartItem, quantity: incrementQuantityByOne },
   ];
 };
+
+export const handleRemoveCartItem = ({
+  previousCartItems,
+  cartItemToRemove,
+}) => {
+  return previousCartItems.filter(
+    (item) => item.documentId !== cartItemToRemove.documentId
+  );
+};
+
+export const handleDecreaseItemQuantity = ({
+  previousCartItems,
+  cartItemToDecrease,
+}) => {
+  const existingCartItem = previousCartItems.find(
+    (item) => item.documentId === cartItemToDecrease.documentId
+  );
+  if (existingCartItem.quantity === 1) {
+    return previousCartItems.filter(
+      (item) => item.documentId !== existingCartItem.documentId
+    );
+  }
+  return previousCartItems.map((cartItem) =>
+    cartItem.documentId === existingCartItem.documentId
+      ? {
+          ...cartItem,
+          quantity: cartItem.quantity - 1,
+        }
+      : cartItem
+  );
+};

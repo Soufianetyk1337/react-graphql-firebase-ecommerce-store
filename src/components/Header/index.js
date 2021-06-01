@@ -11,6 +11,7 @@ const mapState = (state) => ({
   currentUser: state.user.currentUser,
   totalQuantity: selectCartItemsQuantity(state),
 });
+
 function Header() {
   const { currentUser, totalQuantity } = useSelector(mapState);
   const dispatch = useDispatch();
@@ -26,26 +27,26 @@ function Header() {
         </div>
         <nav>
           <ul>
-            <li>
+            <li key="home">
               <Link to="/">Home</Link>
             </li>
-            <li>
+            <li key="search">
               <Link to="/search">Search</Link>
             </li>
           </ul>
         </nav>
         <div className="callToActions">
           <ul>
-            <li>
+            <li key="cart">
               <Link to="/cart">Your Cart ({totalQuantity})</Link>
             </li>
           </ul>
           <ul>
             {currentUser && [
-              <li>
+              <li key="dashboard">
                 <Link to="/dashboard">My Account</Link>
               </li>,
-              <li>
+              <li key="logout">
                 <span
                   onClick={() => {
                     auth.signOut();
@@ -56,10 +57,10 @@ function Header() {
               </li>,
             ]}
             {!currentUser && [
-              <li>
+              <li key="registration">
                 <Link to="/registration">Register</Link>
               </li>,
-              <li>
+              <li key="login">
                 <Link to="/login">Login</Link>
               </li>,
             ]}

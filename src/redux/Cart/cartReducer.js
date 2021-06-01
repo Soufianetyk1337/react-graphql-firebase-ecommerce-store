@@ -1,4 +1,8 @@
-import { checkIfItemsExistsInCart } from "./cartHelpers";
+import {
+  checkIfItemsExistsInCart,
+  handleDecreaseItemQuantity,
+  handleRemoveCartItem,
+} from "./cartHelpers";
 import cartTypes from "./cartTypes";
 
 const INITIAL_STATE = {
@@ -14,7 +18,22 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           nextCartItem: action.payload,
         }),
       };
-
+    case cartTypes.DECREASE_ITEM_QUANTITY:
+      return {
+        ...state,
+        cartItems: handleDecreaseItemQuantity({
+          previousCartItems: state.cartItems,
+          cartItemToDecrease: action.payload,
+        }),
+      };
+    case cartTypes.REMOVE_CART_ITEM:
+      return {
+        ...state,
+        cartItems: handleRemoveCartItem({
+          previousCartItems: state.cartItems,
+          cartItemToRemove: action.payload,
+        }),
+      };
     default:
       return state;
   }

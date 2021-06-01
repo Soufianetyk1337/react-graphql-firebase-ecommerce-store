@@ -35,7 +35,7 @@ function Product(product) {
     <div className="product">
       <div className="thumbnail">
         <Link to={`/product/${productId}`}>
-          <img src={productThumbnail} alt={productName} srcset="" />
+          <img src={productThumbnail} alt={productName} />
         </Link>
       </div>
       <div className="details">
@@ -48,7 +48,7 @@ function Product(product) {
           <li key={productId + 1}>
             <span className="productPrice">${productPrice}</span>
           </li>
-          <li>
+          <li key="addToCart">
             <Button
               {...addToCartProps}
               onClick={() => handleAddToCart(product)}
