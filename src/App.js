@@ -18,30 +18,10 @@ import AdminToolbar from "./components/AdminToolbar";
 import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import Payment from "./pages/Payment";
 
 function App(props) {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   const authListener = auth.onAuthStateChanged(async (userAuth) => {
-  //     if (userAuth) {
-  //       const userRef = await handleUserProfile({ userAuth });
-
-  //       userRef.onSnapshot(async (snapshot) => {
-  //         await dispatch(
-  //           setCurrentUser({
-  //             id: snapshot.id,
-  //             ...snapshot.data(),
-  //           })
-  //         );
-  //       });
-  //     }
-  //     dispatch(setCurrentUser(userAuth));
-  //   });
-  //   return () => {
-  //     authListener();
-  //   };
-  // }, [dispatch]);
-  //
   useEffect(() => {
     dispatch(checkUserSession());
     return () => {};
@@ -83,6 +63,15 @@ function App(props) {
           render={() => (
             <MainLayout>
               <ProductDetails />
+            </MainLayout>
+          )}
+        />
+        <Route
+          path="/payment"
+          exact
+          render={() => (
+            <MainLayout>
+              <Payment />
             </MainLayout>
           )}
         />

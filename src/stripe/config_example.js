@@ -1,0 +1,1 @@
+export const PUBLISHABLE_KEY = process.env.REACT_APP_STRIPE_PUBLISH_KEY;

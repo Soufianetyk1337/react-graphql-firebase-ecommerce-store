@@ -1,5 +1,6 @@
 .formRow {
-  input {
+  input,
+  &.checkoutInput select {
     display: block;
     width: 100%;
     padding: 10px 5px;
