@@ -70,9 +70,11 @@ function App(props) {
           path="/payment"
           exact
           render={() => (
-            <MainLayout>
-              <Payment />
-            </MainLayout>
+            <WithAuth>
+              <MainLayout>
+                <Payment />
+              </MainLayout>
+            </WithAuth>
           )}
         />
         <Route

@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormInput from "../Forms/FormInput";
 import { CountryDropdown } from "react-country-region-selector";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-
+import { useHistory } from "react-router-dom";
 import "./style.scss";
 import Button from "../Forms/Button";
-import { selectCartTotal } from "../../redux/Cart/cartSelectors";
-import { useSelector } from "react-redux";
+import {
+  selectCartTotal,
+  selectCartItemsQuantity,
+} from "../../redux/Cart/cartSelectors";
+import { useSelector, useDispatch } from "react-redux";
 import { api } from "../../utils";
 import { createStructuredSelector } from "reselect";
+import { clearCart } from "../../redux/Cart/cartActions";
 const initialAdressState = {
   line1: "",
   line2: "",
@@ -21,9 +25,12 @@ const initialAdressState = {
 
 const mapState = createStructuredSelector({
   totalPrice: selectCartTotal,
+  quantity: selectCartItemsQuantity,
 });
 function PaymentDetails() {
-  const { totalPrice } = useSelector(mapState);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { totalPrice, quantity } = useSelector(mapState);
   const stripe = useStripe();
   const elements = useElements();
   const [billingAddress, setBillingAddress] = useState({
@@ -34,6 +41,13 @@ function PaymentDetails() {
   });
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
+
+  useEffect(() => {
+    if (quantity < 1) {
+      history.push("/");
+    }
+  }, [history, quantity]);
+
   const handleFormSubmit = async (event) => {
     console.log(`Form Submitted`);
     event.preventDefault();
@@ -84,6 +98,7 @@ function PaymentDetails() {
               })
               .then((paymentIntent) => {
                 console.log(`paymentIntent`, paymentIntent);
+                dispatch(clearCart());
               });
           });
       });

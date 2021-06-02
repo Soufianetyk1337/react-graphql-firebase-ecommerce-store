@@ -74,7 +74,9 @@ function Checkout() {
                             </Button>
                           </td>
                           <td>
-                            <Button>Checkout</Button>
+                            <Button onClick={() => history.push("/payment")}>
+                              Checkout
+                            </Button>
                           </td>
                         </tr>
                       </tbody>
