@@ -31,3 +31,20 @@ export const handleGetUserOrderHisrory = (uid) => {
       .catch((error) => reject(error));
   });
 };
+
+export const handleGetOrderDetails = (orderId) => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("orders")
+      .doc(orderId)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          resolve({ ...snapshot.data(), documentId: orderId });
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

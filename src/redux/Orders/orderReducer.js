@@ -2,6 +2,7 @@ const { orderTypes } = require("./orderTypes");
 
 const INITIAL_STATE = {
   orderHistory: [],
+  orderDetails: {},
 };
 
 const orderReducer = (state = INITIAL_STATE, action) => {
@@ -11,7 +12,11 @@ const orderReducer = (state = INITIAL_STATE, action) => {
         ...state,
         orderHistory: action.payload,
       };
-
+    case orderTypes.SET_ORDER_DETAILS:
+      return {
+        ...state,
+        orderDetails: action.payload,
+      };
     default:
       return state;
   }
