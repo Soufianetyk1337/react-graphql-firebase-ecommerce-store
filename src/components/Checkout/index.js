@@ -17,7 +17,6 @@ const mapState = createStructuredSelector({
 function Checkout() {
   const history = useHistory();
   const { cartItems, totalPrice } = useSelector(mapState);
-  console.log(`totalPrice`, totalPrice);
   return (
     <div className="checkout">
       <div className="cart">

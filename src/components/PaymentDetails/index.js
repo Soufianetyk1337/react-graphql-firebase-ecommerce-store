@@ -9,11 +9,13 @@ import Button from "../Forms/Button";
 import {
   selectCartTotal,
   selectCartItemsQuantity,
+  selectCartItems,
 } from "../../redux/Cart/cartSelectors";
 import { useSelector, useDispatch } from "react-redux";
 import { api } from "../../utils";
 import { createStructuredSelector } from "reselect";
 import { clearCart } from "../../redux/Cart/cartActions";
+import { saveOrderHistory } from "../../redux/Orders/orderActions";
 const initialAdressState = {
   line1: "",
   line2: "",
@@ -26,11 +28,12 @@ const initialAdressState = {
 const mapState = createStructuredSelector({
   totalPrice: selectCartTotal,
   quantity: selectCartItemsQuantity,
+  cartItems: selectCartItems,
 });
 function PaymentDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { totalPrice, quantity } = useSelector(mapState);
+  const { totalPrice, quantity, cartItems } = useSelector(mapState);
   const stripe = useStripe();
   const elements = useElements();
   const [billingAddress, setBillingAddress] = useState({
@@ -44,12 +47,11 @@ function PaymentDetails() {
 
   useEffect(() => {
     if (quantity < 1) {
-      history.push("/");
+      history.push("/dashboard");
     }
   }, [history, quantity]);
 
   const handleFormSubmit = async (event) => {
-    console.log(`Form Submitted`);
     event.preventDefault();
     const cardElement = elements.getElement(CardElement);
 
@@ -97,8 +99,26 @@ function PaymentDetails() {
                 payment_method: paymentMethod.id,
               })
               .then((paymentIntent) => {
-                console.log(`paymentIntent`, paymentIntent);
-                dispatch(clearCart());
+                const orderProps = {
+                  orderTotal: totalPrice,
+                  orderItems: cartItems.map((item) => {
+                    const {
+                      documentId,
+                      productName,
+                      productPrice,
+                      quantity,
+                      productThumbnail,
+                    } = item;
+                    return {
+                      documentId,
+                      productName,
+                      productPrice,
+                      quantity,
+                      productThumbnail,
+                    };
+                  }),
+                };
+                dispatch(saveOrderHistory(orderProps));
               });
           });
       });
