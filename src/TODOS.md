@@ -5,6 +5,7 @@ Bugs
 // Fix redirect user after signin up with Google
 // Fix Logout using redux-saga watcher
 // use another free cloud provider  
+// Adding delete/update operations for admins
 Features
 // [x] Creating Folder Structure
 // [x] Creating components

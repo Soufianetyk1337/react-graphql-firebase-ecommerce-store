@@ -50,7 +50,7 @@ function OrderDetails({ order }) {
     return () => {
       dispatch(setOrderDetails(order));
     };
-  }, []);
+  }, [dispatch, order]);
   const orderItems = order && order.orderItems;
   return (
     <TableContainer>
