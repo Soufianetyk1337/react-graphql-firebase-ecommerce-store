@@ -5,4 +5,4 @@ export const checkUserIsAdmin = (currentUser) => {
   return userRoles.includes("admin");
 };
 
-export const api = axios.create({ baseURL: "http://localhost:5001/" });
+export const api = axios.create({ baseURL: "http://localhost:4242/" });

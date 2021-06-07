@@ -21,7 +21,7 @@ const initialAdressState = {
   line2: "",
   city: "",
   state: "",
-  postalCode: "",
+  postal_code: "",
   country: "",
 };
 
@@ -47,30 +47,31 @@ function PaymentDetails() {
 
   useEffect(() => {
     if (quantity < 1) {
-      history.push("/dashboard");
+      history.push("/confirmation");
     }
   }, [history, quantity]);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const cardElement = elements.getElement(CardElement);
-
+    console.log(`shippingAddress`, shippingAddress);
+    console.log(`billingAddress`, billingAddress);
     if (
       !shippingAddress.line1 ||
       !shippingAddress.city ||
       !shippingAddress.state ||
-      !shippingAddress.postalCode ||
+      !shippingAddress.postal_code ||
       !shippingAddress.country ||
       !billingAddress.line1 ||
       !billingAddress.city ||
       !billingAddress.state ||
-      !billingAddress.postalCode ||
+      !billingAddress.postal_code ||
       !billingAddress.country ||
       !recipientName ||
       !nameOnCard
-    )
+    ) {
       return;
-
+    }
     api
       .post("/payments/create", {
         amount: totalPrice * 100,
@@ -82,11 +83,12 @@ function PaymentDetails() {
         },
       })
       .then(({ data: clientSecret }) => {
+        console.log(`clientSecret`, clientSecret);
         stripe
           .createPaymentMethod({
             type: "card",
             card: cardElement,
-            billingDetails: {
+            billing_details: {
               name: nameOnCard,
               address: {
                 ...billingAddress,
@@ -205,8 +207,8 @@ function PaymentDetails() {
             placeholder="Postal Code"
             handleChange={(event) => handleShipping(event)}
             type="text"
-            name="postalCode"
-            value={shippingAddress.postalCode}
+            name="postal_code"
+            value={shippingAddress.postal_code}
           />
           <div className="formRow checkoutInput">
             <CountryDropdown
@@ -274,9 +276,9 @@ function PaymentDetails() {
             required
             placeholder="Postal Code"
             handleChange={(event) => handleBilling(event)}
-            name="postalCode"
+            name="postal_code"
             type="text"
-            value={billingAddress.postCode}
+            value={billingAddress.postal_code}
           />
           <div className="formRow checkoutInput">
             <CountryDropdown
@@ -286,7 +288,7 @@ function PaymentDetails() {
               name="country"
               value={billingAddress.country}
               onChange={(value) =>
-                handleShipping({
+                handleBilling({
                   target: {
                     name: "country",
                     value,
