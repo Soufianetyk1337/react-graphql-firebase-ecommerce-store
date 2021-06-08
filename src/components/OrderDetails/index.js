@@ -34,7 +34,7 @@ const styles = {
   width: "10%",
   cursor: "pointer",
 };
-const formatText = ({ colName, colValue }) => {
+const formatText = (colName, colValue) => {
   switch (colName) {
     case "productPrice":
       return `$${colValue}`;
@@ -48,9 +48,10 @@ function OrderDetails({ order }) {
   const dispatch = useDispatch();
   useEffect(() => {
     return () => {
-      dispatch(setOrderDetails(order));
+      dispatch(setOrderDetails({}));
     };
-  }, [dispatch, order]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const orderItems = order && order.orderItems;
   return (
     <TableContainer>

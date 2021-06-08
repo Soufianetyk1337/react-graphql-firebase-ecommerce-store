@@ -30,10 +30,10 @@ const styles = {
   width: "10%",
   cursor: "pointer",
 };
-const formatText = ({ colName, colValue }) => {
+const formatText = (colName, colValue) => {
   switch (colName) {
     case "orderTotal":
-      return `$${colValue}`;
+      return `£${colValue}`;
     case "order_created_at":
       return moment(colValue.nano).format("DD/MM/YYYY");
 
@@ -65,14 +65,14 @@ function OrderHistory({ orders }) {
               const { documentId } = row;
               return (
                 <TableRow
+                  style={styles}
                   key={index}
-                  onClick={history.push(`/order/${documentId}`)}
+                  onClick={() => history.push(`/order/${documentId}`)}
                 >
                   {columns.map((col, index) => {
                     const colName = col.id;
                     const colValue = row[colName];
                     const formattedText = formatText(colName, colValue);
-
                     return (
                       <TableCell key={index} style={styles}>
                         {formattedText}

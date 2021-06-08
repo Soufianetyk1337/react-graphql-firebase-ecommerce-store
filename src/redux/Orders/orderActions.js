@@ -5,21 +5,21 @@ export const saveOrderHistory = (order) => ({
   payload: order,
 });
 
-export const getUserHistory = (uid) => ({
+export const getUserOrderHistory = (uid) => ({
   type: orderTypes.GET_USER_HISTORY,
   payload: uid,
 });
 
-export const setUserHistory = (history) => ({
+export const setUserOrderHistory = (history) => ({
   type: orderTypes.SET_USER_HISTORY,
   payload: history,
 });
 
 export const setOrderDetails = (order) => ({
-  type: orderTypes.SET_USER_HISTORY,
+  type: orderTypes.SET_ORDER_DETAILS,
   payload: order,
 });
 export const getOrderDetails = (orderId) => ({
-  type: orderTypes.SET_USER_HISTORY,
+  type: orderTypes.GET_ORDER_DETAILS,
   payload: orderId,
 });

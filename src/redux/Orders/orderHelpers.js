@@ -13,8 +13,7 @@ export const handleSaveOrder = (order) => {
 
 export const handleGetUserOrderHisrory = (uid) => {
   return new Promise((resolve, reject) => {
-    let ref = firestore.collection("orders").orderBy("oreder_created_at");
-    ref = ref.where("orderUserId", "==", uid);
+    let ref = firestore.collection("orders").orderBy("order_created_at");
     ref
       .get()
       .then((snapshot) => {

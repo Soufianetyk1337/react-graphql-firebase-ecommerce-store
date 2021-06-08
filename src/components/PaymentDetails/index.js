@@ -47,7 +47,7 @@ function PaymentDetails() {
 
   useEffect(() => {
     if (quantity < 1) {
-      history.push("/confirmation");
+      history.push("/dashboard");
     }
   }, [history, quantity]);
 
