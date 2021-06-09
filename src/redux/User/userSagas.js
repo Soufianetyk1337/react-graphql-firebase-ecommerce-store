@@ -15,7 +15,6 @@ import {
 } from "./userActions";
 import { handleResetPassword } from "./userHelpers";
 
-// eslint-disable-next-line require-yield
 export function* getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
     const userRef = yield call(handleUserProfile, {
@@ -59,12 +58,9 @@ export function* onCheckUserSession() {
   yield takeLatest(userTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 export function* signOutUser() {
-  console.log(`Worker Executed`);
   try {
     yield auth.signOut();
-    console.log("signOut Executed");
     yield put(signOutUserSuccess());
-    console.log(`Action Dispathced`);
   } catch (error) {
     console.error(error);
   }
@@ -77,7 +73,7 @@ export function* googleSignIn() {
     const { user } = yield auth.signInWithPopup(googleProvider);
     yield getSnapshotFromUserAuth(user);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 export function* onGoogleSignInStart() {
@@ -96,10 +92,6 @@ export function* signUpUser({
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
     const additionalData = { displayName };
     yield getSnapshotFromUserAuth(user, additionalData);
-    // yield call(handleUserProfile, {
-    //   userAuth: user,
-    //   additionalData: { displayName },
-    // });
   } catch (error) {
     console.error(`error`, error);
   }
