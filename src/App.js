@@ -29,7 +29,7 @@ function App(props) {
   }, [dispatch]);
   return (
     <div className="App">
-      <AdminToolbar />
+      {/* <AdminToolbar /> */}
       <Switch>
         <Route
           path="/"
