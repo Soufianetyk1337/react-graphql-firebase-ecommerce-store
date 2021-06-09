@@ -26,7 +26,6 @@ function Header() {
           className="nav__toggle"
           id="nav-toggle"
           onClick={() => {
-            console.log(toggle);
             setToggle(!toggle);
           }}
         >

@@ -67,7 +67,7 @@ function ProductsResults() {
     <div className="products">
       <h1>Browse Products</h1>
       <FormSelect {...filterProps} />
-      <div className="productsResults">
+      <div className="product__container bd-grid">
         {data.map((product, index) => {
           const { productPrice, productThumbnail, productName } = product;
           if (

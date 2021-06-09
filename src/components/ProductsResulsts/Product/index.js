@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../../redux/Cart/cartActions";
 import Button from "../../Forms/Button";
+import "./style.scss";
 function Product(product) {
   const {
     productPrice,
@@ -32,33 +33,23 @@ function Product(product) {
     dispatch(addToCart(product));
   };
   return (
-    <div className="product">
-      <div className="thumbnail">
-        <Link to={`/product/${productId}`}>
-          <img src={productThumbnail} alt={productName} />
-        </Link>
-      </div>
-      <div className="details">
-        <ul>
-          <li key={productId}>
-            <Link to={`/product/${productId}`}>
-              <span className="productName">{productName}</span>
-            </Link>
-          </li>
-          <li key={productId + 1}>
-            <span className="productPrice">${productPrice}</span>
-          </li>
-          <li key="addToCart">
-            <Button
-              {...addToCartProps}
-              onClick={() => handleAddToCart(product)}
-            >
-              Add to cart
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <article className="product">
+      <div className="product__sale">Sale</div>
+      <Link to={`/product/${productId}`}>
+        <img
+          className="product__img"
+          src={productThumbnail}
+          alt={productName}
+        />
+      </Link>
+      <Link to={`/product/${productId}`}>
+        <div className="product__name">{productName}</div>
+      </Link>
+      <div className="product__price">${productPrice} 00</div>
+      <Button {...addToCartProps} onClick={() => handleAddToCart(product)}>
+        Add to cart
+      </Button>
+    </article>
   );
 }
 
