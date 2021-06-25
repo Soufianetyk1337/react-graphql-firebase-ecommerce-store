@@ -7,7 +7,7 @@ import FormInput from "./../../components/Forms/FormInput";
 import FormSelect from "./../../components/Forms/FormSelect";
 import Button from "./../../components/Forms/Button";
 import LoadMore from "./../../components/LoadMore";
-import "./style.scss";
+//import "./style.scss";
 import CKEditor from "ckeditor4-react";
 import {
   addProductStart,

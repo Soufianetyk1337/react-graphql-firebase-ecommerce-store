@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "./style.scss";
+import "./SignUpStyle.scss";
 import Button from "./../../components/Forms/Button";
 import FormInput from "./../../components/Forms/FormInput";
 import { useEffect, useState } from "react";
@@ -102,36 +102,55 @@ function SignUp(props) {
         </ul>
       )}
       <div className="formWrap">
-        <form onSubmit={handleFormSubmit}>
-          <FormInput
-            type="text"
-            name="displayName"
-            value={initialState.displayName}
-            placeholder="Full Name"
-            handleChange={handleChange}
-          />
-          <FormInput
-            type="type"
-            name="email"
-            value={initialState.email}
-            placeholder="Enter Your Email Address"
-            handleChange={handleChange}
-          />
-          <FormInput
-            type="password"
-            name="password"
-            value={initialState.password}
-            placeholder="Password"
-            handleChange={handleChange}
-          />
-          <FormInput
-            type="password"
-            name="confirmPassword"
-            value={initialState.confirmPassword}
-            placeholder="Connfirm Password Name"
-            handleChange={handleChange}
-          />
-          <Button type="submit">Register</Button>
+        <form className="form" onSubmit={handleFormSubmit}>
+          <div className="form-control">
+            <label htmlFor="fullname">Full Name</label>
+
+            <FormInput
+              type="text"
+              name="displayName"
+              value={initialState.displayName}
+              placeholder="Full Name"
+              handleChange={handleChange}
+            />
+          </div>
+
+          <div className="form-control">
+            <label htmlFor="email">Email Address</label>
+            <FormInput
+              type="type"
+              name="email"
+              value={initialState.email}
+              placeholder="Enter Your Email Address"
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="password">Password</label>
+            <FormInput
+              type="password"
+              name="password"
+              value={initialState.password}
+              placeholder="Password"
+              handleChange={handleChange}
+            />
+          </div>
+          <div className="form-control">
+            <label htmlFor="confirm_password">Confirm Password</label>
+            <FormInput
+              type="password"
+              name="confirmPassword"
+              value={initialState.confirmPassword}
+              placeholder="Confirm Password Name"
+              handleChange={handleChange}
+            />
+          </div>
+          <Button
+            type="submit form-button"
+            style={{ width: "100%", marginRight: "0" }}
+          >
+            Register
+          </Button>
         </form>
       </div>
     </AuthWrapper>

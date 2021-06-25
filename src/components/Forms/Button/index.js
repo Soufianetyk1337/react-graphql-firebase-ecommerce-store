@@ -1,8 +1,8 @@
 import React from "react";
-import "./style.scss";
+import "./ButtonStyle.scss";
 function Button({ children, ...otherProps }) {
   return (
-    <button className="btn" {...otherProps}>
+    <button className="form-button" {...otherProps}>
       {children}
     </button>
   );

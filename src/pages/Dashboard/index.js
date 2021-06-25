@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.scss";
+//import "./style.scss";
 import { useEffect } from "react";
 import { getUserOrderHistory } from "../../redux/Orders/orderActions";
 import { useDispatch, useSelector } from "react-redux";

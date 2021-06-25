@@ -55,6 +55,7 @@
 // }
 
 .product__container {
+  margin: 0 auto;
   row-gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }

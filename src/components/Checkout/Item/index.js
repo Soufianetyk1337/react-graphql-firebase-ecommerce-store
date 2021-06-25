@@ -5,7 +5,7 @@ import {
   addToCart,
   decreaseItemQuantity,
 } from "../../../redux/Cart/cartActions";
-import "./style.scss";
+//import "./style.scss";
 function Item(product) {
   const {
     productName,

@@ -11,3 +11,16 @@ Features
 // [x] Creating components
 // [x] Adding firebase functionalities
 // [X] Implementing Redux
+
+/admin
+/dashboard
+/recovery
+/login
+/registration
+/cart
+/order/:orderId
+/payment
+/product/:productId
+/search
+/search/:filterType
+/

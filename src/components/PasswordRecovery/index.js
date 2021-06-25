@@ -1,13 +1,14 @@
-import "./style.scss";
+import "./PasswordRecoveryStyle.scss";
 import AuthWrapper from "../AuthWrapper";
 import FormInput from "./../Forms/FormInput";
 import Button from "./../Forms/Button";
-import { useEffect, useState, useHistory } from "react";
+import { useEffect, useState } from "react";
 import {
   resetPasswordStart,
   resetUserState,
 } from "../../redux/User/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 const mapState = ({ user }) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
   userError: user.userError,
@@ -44,15 +45,23 @@ function PasswordRecovery(props) {
               ))}
             </ul>
           )}
-          <form onSubmit={handleSubmit}>
-            <FormInput
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              name="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button>Email Password</Button>
+          <form className="form" onSubmit={handleSubmit}>
+            <div className="form-control">
+              <label htmlFor="email">Email Address</label>
+              <FormInput
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                name="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <Button
+              className="form-button"
+              style={{ marginRight: "0", width: "100%" }}
+            >
+              Email Password
+            </Button>
           </form>
         </div>
       </AuthWrapper>

@@ -4,7 +4,7 @@ import FormInput from "../Forms/FormInput";
 import { CountryDropdown } from "react-country-region-selector";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useHistory } from "react-router-dom";
-import "./style.scss";
+//import "./style.scss";
 import Button from "../Forms/Button";
 import {
   selectCartTotal,

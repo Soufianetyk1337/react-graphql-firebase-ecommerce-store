@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import "./default.scss";
+// import "./default.scss";
 import { Route, Switch } from "react-router-dom";
 import Registration from "./pages/Registration";
 import MainLayout from "./layouts/MainLayout";
@@ -20,6 +20,8 @@ import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
 import Order from "./pages/Order";
+import Commerce from "./components/Commerce";
+import Menu from "./components/Menu";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -142,6 +144,8 @@ function App(props) {
             </WithAdmin>
           )}
         />
+        <Route path="/commerce" render={() => <Commerce />} />
+        <Route path="/menu" render={() => <Menu />} />
       </Switch>
     </div>
   );

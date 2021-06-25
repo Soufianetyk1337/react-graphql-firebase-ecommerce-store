@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.scss";
+//import "./style.scss";
 
 const Modal = ({ hideModal, toggleModal, children }) => {
   if (hideModal) return null;

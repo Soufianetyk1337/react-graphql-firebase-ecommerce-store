@@ -1,0 +1,49 @@
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  background-color: var(--gray-color);
+}
+.navigation {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__menu {
+    position: fixed;
+    right: -100%;
+    top: var(--header-height);
+    width: 80%;
+    height: 100vh;
+    padding: 2rem;
+    background-color: var(--white-color);
+    transition: 1s;
+  }
+}
+.navigation__item {
+  margin-bottom: var(--mb-4);
+}
+.navigation__link {
+  color: var(--dark-color);
+  font-weight: var(--font-semi-bold);
+}
+
+.navigation__link:hover {
+  color: var(--first-color);
+}
+.navigation__logo {
+  font-weight: var(--font-bold);
+}
+.navigation__cart {
+  font-size: 1.5rem;
+  margin-right: var(--mb-2);
+}
+.navigation__toggle {
+  font-size: 1.5rem;
+  cursor: pointer;
+}

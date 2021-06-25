@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import "./styles.scss";
+// import "./styles.scss";
+import "./HeaderStyle.scss";
 import "boxicons";
 
 import brandLogo from "./../../assets/clothing-brand-logo.jpg";
@@ -21,34 +22,38 @@ function Header() {
   const signOut = () => dispatch(signOutUserStart());
   const [toggle, setToggle] = useState(false);
   return (
-    <header className="l-header" id="header">
-      <nav className="nav bd-grid">
-        <div
-          className="nav__toggle"
-          id="nav-toggle"
-          onClick={() => {
-            setToggle(!toggle);
-          }}
-        >
-          <box-icon name="menu-alt-left"></box-icon>
-        </div>
-        <a href="/" className="nav__logo">
+    <header className="header" id="header">
+      <nav className="navigation gridBody">
+        <a href="/" className="navigation__logo">
           Valenciaga
         </a>
+
         <div
-          className={`${toggle ? "nav__menu show" : "nav__menu"}`}
-          id="nav-menu"
+          className={`${
+            toggle ? "navigation__menu showMenu" : "navigation__menu"
+          }`}
+          id="navigation-menu"
         >
-          <ul className="nav__list">
+          <ul className="navigation__list">
             {currentUser && [
-              <li key="dashboard" className="nav__item">
-                <Link to="/dashboard" className="nav__link">
+              <li className="navigation__item" key="home">
+                <Link to="/" className="navigation__link">
+                  Home
+                </Link>
+              </li>,
+              <li key="dashboard" className="navigation__item">
+                <Link to="/dashboard" className="navigation__link">
                   My Account
                 </Link>
               </li>,
-              <li key="logout" className="nav__item">
+              <li className="navigation__item" key="search">
+                <Link to="/search" className="navigation__link">
+                  Search
+                </Link>
+              </li>,
+              <li key="logout" className="navigation__item">
                 <span
-                  className="nav__link"
+                  className="navigation__link "
                   onClick={() => {
                     signOut();
                   }}
@@ -58,94 +63,89 @@ function Header() {
               </li>,
             ]}
             {!currentUser && [
-              <li key="registration" className="nav__item">
-                <Link to="/registration" className="nav__link">
+              <li key="registration" className="navigation__item">
+                <Link to="/registration" className="navigation__link">
                   Register
                 </Link>
               </li>,
-              <li key="login" className="nav__item">
-                <Link to="/login" className="nav__link">
+              <li key="login" className="navigation__item">
+                <Link to="/login" className="navigation__link">
                   Login
                 </Link>
               </li>,
             ]}
-
-            {/* <li className="nav__item">
-              <a href="/" className="nav__link">
-                Home
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="/search" className="nav__link">
-                Search
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="/" className="nav__link">
-                Your Cart
-              </a>
-            </li>
-            <li className="nav__item">
-              <a href="/" className="nav__link">
-                My Account
-              </a>
-            </li> */}
           </ul>
         </div>
-        <div className="nav__logout">
-          <box-icon name="log-out"></box-icon>
+
+        <div className="icons">
+          <Link to="/cart" className="navigation__link">
+            <i className="bx bx-cart navigation__cart">
+              <span className="total-quantity">{totalQuantity}</span>
+            </i>
+          </Link>
+          <i
+            className="bx bx-menu navigation__toggle"
+            id="nav-toggle"
+            onClick={() => {
+              setToggle(!toggle);
+            }}
+          ></i>
         </div>
       </nav>
-      {/* <div className="wrapper">
-        <div className="logo">
-          <Link to="/">
-            <img src={brandLogo} alt="Clothing brand logo" />
-          </Link>
-        </div>
-        <nav>
-          <ul>
-            <li key="home">
-              <Link to="/">Home</Link>
-            </li>
-            <li key="search">
-              <Link to="/search">Search</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="callToActions">
-          <ul>
-            <li key="cart">
-              <Link to="/cart">Your Cart ({totalQuantity})</Link>
-            </li>
-          </ul>
-          <ul>
-            {currentUser && [
-              <li key="dashboard">
-                <Link to="/dashboard">My Account</Link>
-              </li>,
-              <li key="logout">
-                <span
-                  onClick={() => {
-                    auth.signOut();
-                  }}
-                >
-                  Logout
-                </span>
-              </li>,
-            ]}
-            {!currentUser && [
-              <li key="registration">
-                <Link to="/registration">Register</Link>
-              </li>,
-              <li key="login">
-                <Link to="/login">Login</Link>
-              </li>,
-            ]}
-          </ul>
-        </div>
-      </div> */}
     </header>
   );
 }
 
 export default Header;
+
+/*
+<header className="header">
+        <nav className="navigation bd-grid">
+          <div>
+            <a href="/" className="navigation__logo">
+              Valenciaga
+            </a>
+          </div>
+          <div
+            className={
+              toggle ? "showMenu navigation__menu" : "navigation__menu"
+            }
+            id="nav-menu"
+          >
+            <ul className="navigation__list">
+              <li className="navigation__item">
+                <a href="#home" className="navigation__link active">
+                  Home
+                </a>
+              </li>
+              <li className="navigation__item">
+                <a href="#featured" className="navigation__link">
+                  Featured
+                </a>
+              </li>
+              <li className="navigation__item">
+                <a href="#new" className="navigation__link">
+                  New
+                </a>
+              </li>
+              <li className="navigation__item">
+                <a href="#subscribed" className="navigation__link">
+                  Subscribe
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="icons">
+            <i className="bx bx-cart navigation__cart"></i>
+            <i
+              className="bx bx-menu navigation__toggle"
+              id="nav-toggle"
+              onClick={() => {
+            setToggle(!toggle);
+          }}
+              
+            ></i>
+          </div>
+        </nav>
+      </header>
+*/

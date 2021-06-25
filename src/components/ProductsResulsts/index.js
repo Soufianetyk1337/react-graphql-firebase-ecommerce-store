@@ -5,7 +5,7 @@ import { fetchProductsStart } from "../../redux/Products/productActions";
 import Product from "./Product";
 import FormSelect from "./../../components/Forms/FormSelect";
 
-import "./style.scss";
+import "./ProductsStyle.scss";
 import { useHistory, useParams } from "react-router-dom";
 import LoadMore from "../LoadMore";
 const mapState = ({ product }) => ({

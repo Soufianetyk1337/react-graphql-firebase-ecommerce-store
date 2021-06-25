@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../../redux/Cart/cartActions";
 import Button from "../../Forms/Button";
-import "./style.scss";
+import "./ProductStyle.scss";
 function Product(product) {
   const {
     productPrice,
@@ -34,7 +34,7 @@ function Product(product) {
   };
   return (
     <article className="product">
-      <div className="product__sale">Sale</div>
+      <div className="product__sale">New</div>
       <Link to={`/product/${productId}`}>
         <img
           className="product__img"
