@@ -7,7 +7,7 @@ function HomepageLayout({ currentUser, children, name }) {
   return (
     <div className="fullheight">
       <Header currentUser={currentUser} />
-      {/* {children} */}
+      {children}
       {/* <Footer></Footer> */}
     </div>
   );

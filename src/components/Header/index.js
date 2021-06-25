@@ -36,6 +36,13 @@ function Header() {
         >
           <ul className="navigation__list">
             {currentUser && [
+              <li className="navigation__ittem">
+                <Link to="/cart" className="navigation__link">
+                  <i className="bx bx-cart navigation__cart">
+                    <span className="total-quantity">{totalQuantity}</span>
+                  </i>
+                </Link>
+              </li>,
               <li className="navigation__item" key="home">
                 <Link to="/" className="navigation__link">
                   Home
@@ -78,11 +85,6 @@ function Header() {
         </div>
 
         <div className="icons">
-          <Link to="/cart" className="navigation__link">
-            <i className="bx bx-cart navigation__cart">
-              <span className="total-quantity">{totalQuantity}</span>
-            </i>
-          </Link>
           <i
             className="bx bx-menu navigation__toggle"
             id="nav-toggle"

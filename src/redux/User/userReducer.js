@@ -4,11 +4,6 @@ const INITIAL_STATE = {
   currentUser: null,
   userError: [],
   resetPasswordSuccess: false,
-  // signInSuccess: false,
-  // signUpError: [],
-  // signUpSuccess: false,
-  // resetPasswordSuccess: false,
-  // resetPasswordError: [],
 };
 
 // eslint-disable-next-line no-unused-vars

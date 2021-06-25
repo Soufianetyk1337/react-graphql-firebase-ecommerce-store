@@ -1,11 +1,11 @@
 import React from "react";
-import Directory from "../../components/Directory";
+import Home from "../../components/Home/Home";
 import "./styles.scss";
 function Homepage() {
   return (
-    <section className="homepage">
-      <Directory />
-    </section>
+    <main className="main">
+      <Home />
+    </main>
   );
 }
 

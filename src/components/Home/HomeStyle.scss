@@ -1,0 +1,25 @@
+.homepage {
+  background-color: var(--gray-color);
+}
+.homepage__container {
+  height: calc(100vh - var(--header-height));
+}
+.homepage__data {
+  padding-top: 6rem;
+}
+.homepage__title {
+  align-self: center;
+  font-size: var(--big-font-size);
+  line-height: 1;
+  letter-spacing: 0.5rem;
+  margin-bottom: 4rem;
+}
+.homepage__title span {
+  font-size: var(--h1-font-size);
+}
+.homepage__image {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 260px;
+}

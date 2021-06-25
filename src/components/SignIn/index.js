@@ -13,25 +13,26 @@ import {
   googleSignInStart,
 } from "../../redux/User/userActions";
 import { useDispatch, useSelector } from "react-redux";
-
 // const validateEmail =(email) =>{
 //   const valid = new RegExp(/^[^@\s]+@[^@\s]+\.[^@\s]+$/);
 //   return valid.test(email);
 // }
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
+  userError: user.userError,
 });
 function SignIn(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(emailSignInStart({ email, password }));
   };
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, userError } = useSelector(mapState);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState(userError);
 
   useEffect(() => {
     if (currentUser) {
@@ -40,15 +41,29 @@ function SignIn(props) {
       history.push("/");
     }
     return () => {};
-  }, [currentUser, history, dispatch]);
+  }, [currentUser, history, dispatch, formError]);
   const handeGoogleSignIn = () => {
     dispatch(googleSignInStart());
   };
-
   return (
     <AuthWrapper headline="Sign In">
       <div className="formWrapper">
         <form className="form" onSubmit={handleSubmit}>
+          {Array.isArray(formError) && formError.length > 0 && (
+            <div className="form-error-wrap">
+              <div className="form-error">{formError}</div>
+              <div
+                className="form-close"
+                onClick={() => {
+                  console.log("Form error");
+                  setFormError([]);
+                }}
+              >
+                X
+              </div>
+            </div>
+          )}
+
           <div className="form-control">
             <label htmlFor="email">Email Address</label>
             <FormInput
@@ -58,8 +73,8 @@ function SignIn(props) {
               placeholder="Enter Your Email Address"
               handleChange={(e) => setEmail(e.target.value)}
             />
-            <i class="bx bx-comment-check"></i>
-            <i class="bx bx-comment-error"></i>
+            <i className="bx bx-comment-check"></i>
+            <i className="bx bx-comment-error"></i>
             <small>Error Message</small>
           </div>
           <div className="form-control">
@@ -71,8 +86,8 @@ function SignIn(props) {
               placeholder="Enter Your Password"
               handleChange={(e) => setPassword(e.target.value)}
             />
-            <i class="bx bx-comment-check"></i>
-            <i class="bx bx-comment-error"></i>
+            <i className="bx bx-comment-check"></i>
+            <i className="bx bx-comment-error"></i>
           </div>
           <Button type="submit" className="form-button">
             Login
@@ -100,8 +115,8 @@ export default SignIn;
     <div className="form-control">
     <label htmlFor="Email">Email</label>
     <input type="email" placeholder="Enter Your Email"/>
-    <i class='bx bx-comment-check'></i>
-    <i class='bx bx-comment-error'></i>
+    <i className='bx bx-comment-check'></i>
+    <i className='bx bx-comment-error'></i>
     <small>Error Meesage Here</small>
     </div>
   </form>

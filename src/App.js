@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// import "./default.scss";
+import "./default.scss";
 import { Route, Switch } from "react-router-dom";
 import Registration from "./pages/Registration";
 import MainLayout from "./layouts/MainLayout";
