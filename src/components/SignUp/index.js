@@ -101,7 +101,7 @@ function SignUp(props) {
           })}
         </ul>
       )}
-      <div className="formWrap">
+      <div className="formWrapper">
         <form className="form" onSubmit={handleFormSubmit}>
           <div className="form-control">
             <label htmlFor="fullname">Full Name</label>

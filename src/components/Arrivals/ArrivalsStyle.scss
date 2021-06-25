@@ -1,0 +1,29 @@
+.arrivals__container {
+  row-gap: 2rem;
+}
+.arrivals__box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: var(--gray-color);
+  overflow: hidden;
+}
+.arrivals__link {
+  position: absolute;
+  bottom: -100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(229, 89, 81, 0.2);
+  transition: 0.3s;
+}
+.arrivals__box:hover .arrivals__link {
+  bottom: 0;
+}
+@media screen and (min-width: 768px) {
+  .arrivals__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
