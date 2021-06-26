@@ -27,3 +27,13 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+@media screen and (max-width: 640px) {
+  .arrivals__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 450px) {
+  .arrivals__container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
