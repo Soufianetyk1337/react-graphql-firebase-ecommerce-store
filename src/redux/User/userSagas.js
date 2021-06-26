@@ -82,11 +82,7 @@ export function* onGoogleSignInStart() {
 export function* signUpUser({
   payload: { displayName, password, email, confirmPassword },
 }) {
-  if (password !== confirmPassword) {
-    const error = ["Password don't match"];
-    yield put(userError(error));
-    return;
-  }
+  console.log({ displayName, email });
 
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
