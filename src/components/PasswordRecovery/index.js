@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import "./PasswordRecoveryStyle.scss";
 import AuthWrapper from "../AuthWrapper";
-import FormInput from "./../Forms/FormInput";
-import Button from "./../Forms/Button";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import {
   resetPasswordStart,
@@ -30,42 +31,78 @@ function PasswordRecovery(props) {
   useEffect(() => {
     if (Array.isArray(userError) && userError.length > 0) setErrors(userError);
   }, [userError, history]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (values) => {
+    const { email } = values;
     dispatch(resetPasswordStart({ email }));
   };
   return (
-    <div>
-      <AuthWrapper headline="Password Recovery">
-        <div className="formWrap">
-          {errors.length > 0 && (
-            <ul>
-              {errors.map((error, index) => (
-                <li key={index}>{error}</li>
-              ))}
-            </ul>
-          )}
-          <form className="form" onSubmit={handleSubmit}>
-            <div className="form-control">
-              <label htmlFor="email">Email Address</label>
-              <FormInput
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                name="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <Button
-              className="form-button"
-              style={{ marginRight: "0", width: "100%" }}
-            >
-              Email Password
-            </Button>
-          </form>
-        </div>
-      </AuthWrapper>
-    </div>
+    <AuthWrapper headline="Sign In">
+      <div className="formWrapper">
+        <Formik
+          initialValues={{ email }}
+          onSubmit={async (values) => {
+            handleSubmit(values);
+          }}
+          validationSchema={Yup.object().shape({
+            email: Yup.string().email().required("Required"),
+          })}
+        >
+          {(props) => {
+            const {
+              values,
+              touched,
+              errors,
+              dirty,
+              isSubmitting,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              handleReset,
+            } = props;
+            return (
+              <form className="reset-form" onSubmit={handleSubmit}>
+                <label htmlFor="email" style={{ display: "block" }}>
+                  Email
+                </label>
+                <input
+                  id="email"
+                  placeholder="Enter your email"
+                  type="text"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  className={
+                    errors.email && touched.email
+                      ? "text-input error"
+                      : "text-input"
+                  }
+                />
+                {errors.email && touched.email && (
+                  <div className="input-feedback">{errors.email}</div>
+                )}
+
+                {Array.isArray(userError) &&
+                  userError.length > 0 &&
+                  !isSubmitting && (
+                    <div className="input-feedback">{userError}</div>
+                  )}
+                <button
+                  type="button"
+                  className="outline"
+                  onClick={handleReset}
+                  disabled={!dirty || isSubmitting}
+                >
+                  Reset
+                </button>
+                <button type="submit" disabled={isSubmitting}>
+                  Send Email
+                </button>
+              </form>
+            );
+          }}
+        </Formik>
+      </div>
+    </AuthWrapper>
   );
 }
 export default PasswordRecovery;
