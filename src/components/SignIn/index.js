@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-// import "./SignInStyle.scss";
-import "./Helper.scss";
+import "./SignInStyle.scss";
+// import "./Helper.scss";
 import Button from "./../Forms/Button";
 import FormInput from "./../../components/Forms/FormInput";
 import AuthWrapper from "./../AuthWrapper";
@@ -48,65 +48,6 @@ function SignIn(props) {
     dispatch(googleSignInStart());
   };
   return (
-    // <AuthWrapper headline="Sign In">
-    //   <div className="formWrapper">
-    //     <form className="form" onSubmit={handleSubmit}>
-    //       {Array.isArray(formError) && formError.length > 0 && (
-    //         <div className="form-error-wrap">
-    //           <div className="form-error">{formError}</div>
-    //           <div
-    //             className="form-close"
-    //             onClick={() => {
-    //               console.log("Form error");
-    //               setFormError([]);
-    //             }}
-    //           >
-    //             X
-    //           </div>
-    //         </div>
-    //       )}
-
-    //       <div className="form-control">
-    //         <label htmlFor="email">Email Address</label>
-    //         <FormInput
-    //           type="type"
-    //           name="email"
-    //           value={email}
-    //           placeholder="Enter Your Email Address"
-    //           handleChange={(e) => setEmail(e.target.value)}
-    //         />
-    //         <i className="bx bx-comment-check"></i>
-    //         <i className="bx bx-comment-error"></i>
-    //         <small>Error Message</small>
-    //       </div>
-    //       <div className="form-control">
-    //         <label htmlFor="email">Password </label>
-    //         <FormInput
-    //           type="password"
-    //           name="password"
-    //           value={password}
-    //           placeholder="Enter Your Password"
-    //           handleChange={(e) => setPassword(e.target.value)}
-    //         />
-    //         <i className="bx bx-comment-check"></i>
-    //         <i className="bx bx-comment-error"></i>
-    //       </div>
-    //       <Button type="submit" className="form-button">
-    //         Login
-    //       </Button>
-
-    //       <Button className="form-button google" onClick={handeGoogleSignIn}>
-    //         Google SignIn
-    //       </Button>
-
-    //       <div className="links form-button">
-    //         <Link to="recovery" className="recovery">
-    //           Reset password
-    //         </Link>
-    //       </div>
-    //     </form>
-    //   </div>
-    // </AuthWrapper>
     <AuthWrapper headline="Sign In">
       <div className="formWrapper">
         <Formik
@@ -138,7 +79,7 @@ function SignIn(props) {
               handleReset,
             } = props;
             return (
-              <form onSubmit={handleSubmit}>
+              <form className="signin-form" onSubmit={handleSubmit}>
                 <label htmlFor="email" style={{ display: "block" }}>
                   Email
                 </label>
@@ -177,7 +118,6 @@ function SignIn(props) {
                 {errors.password && touched.password && (
                   <div className="input-feedback">{errors.password}</div>
                 )}
-
                 {Array.isArray(userError) &&
                   userError.length > 0 &&
                   !isSubmitting && (
@@ -194,8 +134,17 @@ function SignIn(props) {
                 <button type="submit" disabled={isSubmitting}>
                   Login
                 </button>
-
-                <DisplayFormikState {...props} />
+                <button type="button" onClick={handeGoogleSignIn}>
+                  Google Signin
+                </button>
+                <Link
+                  to="recovery"
+                  className="reset-link"
+                  rel="noopener noreferrer"
+                >
+                  Forgot Password?{" "}
+                </Link>
+                {/* <DisplayFormikState {...props} /> */}
               </form>
             );
           }}
