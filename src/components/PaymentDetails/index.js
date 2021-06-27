@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/heading-has-content */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import FormInput from "../Forms/FormInput";
@@ -5,6 +6,7 @@ import { CountryDropdown } from "react-country-region-selector";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useHistory } from "react-router-dom";
 //import "./style.scss";
+import "./PaymentDetailsStyle.scss";
 import Button from "../Forms/Button";
 import {
   selectCartTotal,
@@ -16,6 +18,8 @@ import { api } from "../../utils";
 import { createStructuredSelector } from "reselect";
 import { clearCart } from "../../redux/Cart/cartActions";
 import { saveOrderHistory } from "../../redux/Orders/orderActions";
+import { Formik } from "formik";
+import * as Yup from "yup";
 const initialAdressState = {
   line1: "",
   line2: "",
@@ -25,6 +29,23 @@ const initialAdressState = {
   country: "",
 };
 
+const shippingAdressinitialState = {
+  shippingLine1: "",
+  shippingLine2: "",
+  shippingCity: "",
+  shippingState: "",
+  shippingPostalCode: "",
+  shippingCountry: "",
+};
+
+const billingAdressinitialState = {
+  billingLine1: "",
+  billingLine2: "",
+  billingCity: "",
+  billingState: "",
+  billingPostal_code: "",
+  billingCountry: "",
+};
 const mapState = createStructuredSelector({
   totalPrice: selectCartTotal,
   quantity: selectCartItemsQuantity,
@@ -51,11 +72,8 @@ function PaymentDetails() {
     }
   }, [history, quantity]);
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async (values) => {
     const cardElement = elements.getElement(CardElement);
-    console.log(`shippingAddress`, shippingAddress);
-    console.log(`billingAddress`, billingAddress);
     if (
       !shippingAddress.line1 ||
       !shippingAddress.city ||
@@ -158,7 +176,7 @@ function PaymentDetails() {
   };
   return (
     <div className="paymentDetails">
-      <form>
+      {/* <form>
         <div className="group">
           <h2>Shipping Address</h2>
           <FormInput
@@ -302,12 +320,212 @@ function PaymentDetails() {
           <h2>Card Details </h2>
           <CardElement options={cardElementProps} />
         </div>
-      </form>
+      </form>*/}
+      <Formik
+        initialValues={{
+          ...shippingAdressinitialState,
+          ...billingAdressinitialState,
+          nameOnCard,
+          recipientName,
+        }}
+        onSubmit={async (values) => {
+          console.log(values);
+        }}
+        validationSchema={Yup.object().shape({
+          email: Yup.string().email().required("Required"),
+        })}
+      >
+        {(props) => {
+          const {
+            values,
+            touched,
+            errors,
+            dirty,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            handleReset,
+          } = props;
+          return (
+            <form className="reset-form" onSubmit={handleSubmit}>
+              <h2>Shipping Address</h2>
+              <label htmlFor="recipientName" style={{ display: "block" }}>
+                Recipient Name
+              </label>
+              <input
+                id="recipientName"
+                placeholder="Enter Recipient Name"
+                type="text"
+                value={values.recipientName}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.recipientName && touched.recipientName
+                    ? "text-input error"
+                    : "text-input"
+                }
+              />
+              {errors.recipientName && touched.recipientName && (
+                <div className="input-feedback">{errors.recipientName}</div>
+              )}
+              <label htmlFor="shippingLine1" style={{ display: "block" }}>
+                Line 1
+              </label>
+              <input
+                id="shippingLine1"
+                placeholder="Enter First Address"
+                type="text"
+                value={values.shippingLine1}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.shippingLine1 && touched.shippingLine1
+                    ? "text-input error"
+                    : "text-input"
+                }
+              />
+              {errors.shippingLine1 && touched.shippingLine1 && (
+                <div className="input-feedback">{errors.shippingLine1}</div>
+              )}
+              <label htmlFor="shippingLine2" style={{ display: "block" }}>
+                Line 2
+              </label>
+              <input
+                id="shippingLine2"
+                placeholder="Enter Second Address"
+                type="text"
+                value={values.shippingLine2}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.shippingLine2 && touched.shippingLine2
+                    ? "text-input error"
+                    : "text-input"
+                }
+              />
+              {errors.shippingLine2 && touched.shippingLine2 && (
+                <div className="input-feedback">{errors.shippingLine2}</div>
+              )}
+              <label htmlFor="shippingCity" style={{ display: "block" }}>
+                City
+              </label>
+              <input
+                id="shippingCity"
+                placeholder="Enter your city"
+                type="text"
+                value={values.shippingCity}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.shippingCity && touched.shippingCity
+                    ? "text-input error"
+                    : "text-input"
+                }
+              />
+              {errors.shippingCity && touched.shippingCity && (
+                <div className="input-feedback">{errors.shippingCity}</div>
+              )}
+              <label htmlFor="shippingState" style={{ display: "block" }}>
+                State
+              </label>
+              <input
+                id="shippingState"
+                placeholder="Enter your state"
+                type="text"
+                value={values.shippingState}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.shippingState && touched.shippingState
+                    ? "text-input error"
+                    : "text-input"
+                }
+              />
+              {errors.shippingState && touched.shippingState && (
+                <div className="input-feedback">{errors.shippingState}</div>
+              )}
+              <label htmlFor="shippingPostalCode" style={{ display: "block" }}>
+                Postal Code
+              </label>
+              <input
+                id="shippingPostalCode"
+                placeholder="Enter your postal code"
+                type="text"
+                value={values.shippingPostalCode}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.shippingPostalCode && touched.shippingPostalCode
+                    ? "text-input error"
+                    : "text-input"
+                }
+              />
+              {errors.shippingPostalCode && touched.shippingPostalCode && (
+                <div className="input-feedback">
+                  {errors.shippingPostalCode}
+                </div>
+              )}
+              <label htmlFor="shippingCountry">Shipping Country</label>
+              <CountryDropdown
+                required
+                valueType="short"
+                handleChange={(event) => handleShipping(event)}
+                name="country"
+                value={values.shippingCountry}
+                onChange={handleChange}
+                className={
+                  errors.shippingPostalCode && touched.shippingPostalCode
+                    ? "input text-input error"
+                    : "input text-input"
+                }
+                // onChange={(value) =>
+                //   handleShipping({
+                //     target: {
+                //       name: "country",
+                //       value,
+                //     },
+                //   })
+                // }
+              />
+              {errors.shippingCountry && touched.shippingCountry && (
+                <div className="input-feedback">{errors.shippingCountry}</div>
+              )}
+              <button
+                type="button"
+                className="outline"
+                onClick={handleReset}
+                disabled={!dirty || isSubmitting}
+              >
+                Reset
+              </button>
+              <button type="submit" disabled={isSubmitting}>
+                Pay Now
+              </button>
+              <DisplayFormikState {...props} />
+            </form>
+          );
+        }}
+      </Formik>
+
       <Button type="submit" onClick={handleFormSubmit}>
         Pay Now
       </Button>
     </div>
   );
 }
-
+const DisplayFormikState = (props) => (
+  <div style={{ margin: "1rem 0" }}>
+    <h3 style={{ fontFamily: "monospace" }} />
+    <pre
+      style={{
+        background: "#f6f8fa",
+        fontSize: ".65rem",
+        padding: ".5rem",
+      }}
+    >
+      <strong>props</strong> = {JSON.stringify(props, null, 2)}
+    </pre>
+  </div>
+);
 export default PaymentDetails;

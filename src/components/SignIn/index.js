@@ -20,7 +20,7 @@ const mapState = ({ user }) => ({
   userError: user.userError,
 });
 function SignIn(props) {
-  const handleSubmit = async (e, values) => {
+  const handleSubmit = async (values) => {
     const { email, password } = values;
     dispatch(emailSignInStart({ email, password }));
   };
@@ -140,6 +140,7 @@ function SignIn(props) {
                 >
                   Forgot Password?{" "}
                 </Link>
+                <DisplayFormikState {...props} />
               </form>
             );
           }}
@@ -148,5 +149,18 @@ function SignIn(props) {
     </AuthWrapper>
   );
 }
-
+const DisplayFormikState = (props) => (
+  <div style={{ margin: "1rem 0" }}>
+    <h3 style={{ fontFamily: "monospace" }} />
+    <pre
+      style={{
+        background: "#f6f8fa",
+        fontSize: ".65rem",
+        padding: ".5rem",
+      }}
+    >
+      <strong>props</strong> = {JSON.stringify(props, null, 2)}
+    </pre>
+  </div>
+);
 export default SignIn;

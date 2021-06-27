@@ -1,6 +1,6 @@
 import React from "react";
-const ImageLink = `https://github.com/bedimcode/responsive-ecommerce-website/blob/master/assets/img/
-`;
+import MenHomepageImage from "./../../assets/HomePageImage.png";
+import { Link } from "react-router-dom";
 function Home() {
   return (
     <section className="homepage" id="homepage">
@@ -10,12 +10,12 @@ function Home() {
             NEW <br />
             <span>ARRIVALS</span>
           </h1>
-          <a href="#featured" className="button">
+          <Link to="/registration" className="button">
             GO SHOPPING
-          </a>
+          </Link>
         </div>
         <img
-          src={`${ImageLink}home.png?raw=true`}
+          src={MenHomepageImage}
           alt="Homepage"
           className="homepage__image"
         />

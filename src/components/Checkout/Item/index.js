@@ -5,7 +5,7 @@ import {
   addToCart,
   decreaseItemQuantity,
 } from "../../../redux/Cart/cartActions";
-//import "./style.scss";
+import "./style.scss";
 function Item(product) {
   const {
     productName,
@@ -32,16 +32,21 @@ function Item(product) {
             <img src={productThumbnail} alt={productName} />
           </td>
           <td>{productName}</td>
-          <td>
+          <td className="quantityCell">
             <span
               className="cartButton"
               onClick={() => handleDecreaseQuantity(product)}
-            >{`< `}</span>
-            <span>{quantity}</span>
+            >
+              <i class="bx bx-minus"></i>{" "}
+            </span>
+            <span className="cartQuantity">{quantity}</span>
             <span
               className="cartButton"
               onClick={() => handleIncreaseQuantity(product)}
-            >{` >`}</span>
+            >
+              {" "}
+              <i class="bx bx-plus"></i>
+            </span>
           </td>
           <td>${productPrice}</td>
           <td align="center">
@@ -49,7 +54,7 @@ function Item(product) {
               className="cartButton"
               onClick={() => handleRemoveItemFromTheCart(documentId)}
             >
-              X
+              <i class="bx bx-trash"></i>
             </span>
           </td>
         </tr>

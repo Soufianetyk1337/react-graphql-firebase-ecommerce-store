@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import "./HeaderStyle.scss";
 import "boxicons";
 
-import brandLogo from "./../../assets/clothing-brand-logo.jpg";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onSignOutUserStart } from "../../redux/User/userSagas";
@@ -99,55 +98,3 @@ function Header() {
 }
 
 export default Header;
-
-/*
-<header className="header">
-        <nav className="navigation bd-grid">
-          <div>
-            <a href="/" className="navigation__logo">
-              Valenciaga
-            </a>
-          </div>
-          <div
-            className={
-              toggle ? "showMenu navigation__menu" : "navigation__menu"
-            }
-            id="nav-menu"
-          >
-            <ul className="navigation__list">
-              <li className="navigation__item">
-                <a href="#home" className="navigation__link active">
-                  Home
-                </a>
-              </li>
-              <li className="navigation__item">
-                <a href="#featured" className="navigation__link">
-                  Featured
-                </a>
-              </li>
-              <li className="navigation__item">
-                <a href="#new" className="navigation__link">
-                  New
-                </a>
-              </li>
-              <li className="navigation__item">
-                <a href="#subscribed" className="navigation__link">
-                  Subscribe
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="icons">
-            <i className="bx bx-cart navigation__cart"></i>
-            <i
-              className="bx bx-menu navigation__toggle"
-              id="nav-toggle"
-              onClick={() => {
-            setToggle(!toggle);
-          }}
-              
-            ></i>
-          </div>
-        </nav>
-      </header>
-*/
