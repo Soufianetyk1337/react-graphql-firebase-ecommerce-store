@@ -36,7 +36,7 @@ const shippingAdressinitialState = {
   shippingCity: "",
   shippingState: "",
   shippingPostalCode: "",
-  shippingCountry: "MA",
+  shippingCountry: "",
 };
 
 const billingAdressinitialState = {
@@ -44,7 +44,7 @@ const billingAdressinitialState = {
   billingLine2: "",
   billingCity: "",
   billingState: "",
-  billingPostal_code: "",
+  billingPostalCode: "",
   billingCountry: "",
 };
 const mapState = createStructuredSelector({
@@ -66,7 +66,6 @@ function PaymentDetails() {
   });
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
-  const [country, setCountry] = useState("");
   useEffect(() => {
     if (quantity < 1) {
       history.push("/dashboard");
@@ -187,11 +186,67 @@ function PaymentDetails() {
           }}
           onSubmit={async (values) => {}}
           validationSchema={Yup.object().shape({
-            email: Yup.string().email().required("Required"),
+            shippingLine1: Yup.string()
+              .required("Required")
+              .min("25", "Shipping Address Must be  at least 25 Digits")
+              .matches(
+                /^[#.0-9a-zA-Z\s,-]+$/,
+                "Address Should not have any Special Characters except #"
+              ),
+            shippingLine2: Yup.string()
+              .min("25", "Shipping Address Must be  at least 25 Digits")
+              .matches(
+                /^[#.0-9a-zA-Z\s,-]+$/,
+                "Address Should not have any Special Characters except #"
+              ),
+            shippingCity: Yup.string()
+              .required("Required")
+              .min("4", "City should be at least 4 characters")
+              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
+            shippingState: Yup.string()
+              .required("Required")
+              .min("4", "State should be at least 4 characters")
+              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
+            shippingCountry: Yup.string().required("Required"),
             shippingPostalCode: Yup.string()
               .required("Required")
               .min("5", "Postal Code Must be exactly 5 Digits")
               .matches(/[0-9]/, "Postal Code should Only contain numbers."),
+
+            billingLine1: Yup.string()
+              .required("Required")
+              .min("25", "Shipping Address Must be  at least 25 Digits")
+              .matches(
+                /^[#.0-9a-zA-Z\s,-]+$/,
+                "Address Should not have any Special Characters except #"
+              ),
+            billingLine2: Yup.string()
+              .min("25", "Shipping Address Must be  at least 25 Digits")
+              .matches(
+                /^[#.0-9a-zA-Z\s,-]+$/,
+                "Address Should not have any Special Characters except #"
+              ),
+            billingCity: Yup.string()
+              .required("Required")
+              .min("4", "City should be at least 4 characters")
+              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
+            billingState: Yup.string()
+              .required("Required")
+              .min("4", "State should be at least 4 characters")
+              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
+            billingCountry: Yup.string().required("Required"),
+            billingPostalCode: Yup.string()
+              .required("Required")
+              .min("5", "Postal Code Must be exactly 5 Digits")
+              .matches(/[0-9]/, "Postal Code should Only contain numbers."),
+            nameOnCard: Yup.string()
+              .required("Required")
+              .min("6", "Name on card Should be at least 6 characters")
+              .matches(/^[a-zA-Z]+$/),
+            recipientName: Yup.string()
+              .required("Required")
+              .min("6", "Name on card Should be at least 6 characters")
+              .matches(/^[a-zA-Z]+$/),
           })}
         >
           {(props) => {
@@ -344,12 +399,12 @@ function PaymentDetails() {
                         </div>
                       )}
                     <label htmlFor="shippingCountry">Shipping Country</label>
-
                     <CountryDropdown
                       required
                       valueType="short"
                       id="shippingCountry"
                       name="shippingCountry"
+                      defaultOptionLabel="Choose Shipping Country"
                       value={values.shippingCountry}
                       onChange={(event, value) => {
                         handleChange(value);
@@ -497,8 +552,8 @@ function PaymentDetails() {
                     <CountryDropdown
                       required
                       valueType="short"
-                      handleChange={(event) => handleShipping(event)}
-                      name="country"
+                      name="billingCountry"
+                      defaultOptionLabel="Choose Billing Country"
                       value={values.billingCountry}
                       onChange={(event, value) => {
                         handleChange(value);
