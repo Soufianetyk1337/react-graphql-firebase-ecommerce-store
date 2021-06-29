@@ -20,6 +20,7 @@ import { clearCart } from "../../redux/Cart/cartActions";
 import { saveOrderHistory } from "../../redux/Orders/orderActions";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
 const initialAdressState = {
   line1: "",
   line2: "",
@@ -58,14 +59,14 @@ function PaymentDetails() {
   const stripe = useStripe();
   const elements = useElements();
   const [billingAddress, setBillingAddress] = useState({
-    ...initialAdressState,
+    ...billingAdressinitialState,
   });
   const [shippingAddress, setShippingAddress] = useState({
-    ...initialAdressState,
+    ...shippingAdressinitialState,
   });
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
-
+  const [country, setCountry] = useState("");
   useEffect(() => {
     if (quantity < 1) {
       history.push("/dashboard");
@@ -176,151 +177,6 @@ function PaymentDetails() {
   };
   return (
     <div className="paymentDetails">
-      {/* <form>
-        <div className="group">
-          <h2>Shipping Address</h2>
-          <FormInput
-            required
-            placeholder="Recipient 1"
-            name="recipientName"
-            value={recipientName}
-            handleChange={(e) => setRecipientName(e.target.value)}
-            type="text"
-          />
-          <FormInput
-            required
-            placeholder="Line 1"
-            handleChange={(event) => handleShipping(event)}
-            name="line1"
-            value={shippingAddress.line1}
-            type="text"
-          />
-
-          <FormInput
-            placeholder="Line 2"
-            handleChange={(event) => handleShipping(event)}
-            name="line2"
-            type="text"
-            value={shippingAddress.line2}
-          />
-          <FormInput
-            required
-            placeholder="City"
-            handleChange={(event) => handleShipping(event)}
-            name="city"
-            type="text"
-            value={shippingAddress.city}
-          />
-
-          <FormInput
-            required
-            placeholder="State"
-            handleChange={(event) => handleShipping(event)}
-            type="text"
-            name="state"
-            value={shippingAddress.state}
-          />
-          <FormInput
-            required
-            placeholder="Postal Code"
-            handleChange={(event) => handleShipping(event)}
-            type="text"
-            name="postal_code"
-            value={shippingAddress.postal_code}
-          />
-          <div className="formRow checkoutInput">
-            <CountryDropdown
-              required
-              valueType="short"
-              handleChange={(event) => handleShipping(event)}
-              className=""
-              name="country"
-              value={shippingAddress.country}
-              onChange={(value) =>
-                handleShipping({
-                  target: {
-                    name: "country",
-                    value,
-                  },
-                })
-              }
-            />
-          </div>
-        </div>
-        <div className="group">
-          <h2>Billing Address</h2>
-          <FormInput
-            required
-            placeholder="Name on Card"
-            type="text"
-            name="nameOnCard"
-            handleChange={(e) => setNameOnCard(e.target.value)}
-            value={nameOnCard}
-          />
-          <FormInput
-            required
-            placeholder="Line 1"
-            handleChange={(event) => handleBilling(event)}
-            name="line1"
-            type="text"
-            value={billingAddress.line1}
-          />
-
-          <FormInput
-            placeholder="Line 2"
-            handleChange={(event) => handleBilling(event)}
-            name="line2"
-            type="text"
-            value={billingAddress.line2}
-          />
-          <FormInput
-            required
-            placeholder="City"
-            handleChange={(event) => handleBilling(event)}
-            name="city"
-            type="text"
-            value={billingAddress.city}
-          />
-
-          <FormInput
-            required
-            placeholder="State"
-            handleChange={(event) => handleBilling(event)}
-            name="state"
-            type="text"
-            value={billingAddress.state}
-          />
-          <FormInput
-            required
-            placeholder="Postal Code"
-            handleChange={(event) => handleBilling(event)}
-            name="postal_code"
-            type="text"
-            value={billingAddress.postal_code}
-          />
-          <div className="formRow checkoutInput">
-            <CountryDropdown
-              required
-              valueType="short"
-              handleChange={(event) => handleBilling(event)}
-              name="country"
-              value={billingAddress.country}
-              onChange={(value) =>
-                handleBilling({
-                  target: {
-                    name: "country",
-                    value,
-                  },
-                })
-              }
-            />
-          </div>
-        </div>
-        <div className="group">
-          <h2>Card Details </h2>
-          <CardElement options={cardElementProps} />
-        </div>
-      </form>*/}
       <div className="formWrapper">
         <Formik
           initialValues={{
@@ -329,9 +185,7 @@ function PaymentDetails() {
             nameOnCard,
             recipientName,
           }}
-          onSubmit={async (values) => {
-            console.log(values);
-          }}
+          onSubmit={async (values) => {}}
           validationSchema={Yup.object().shape({
             email: Yup.string().email().required("Required"),
             shippingPostalCode: Yup.string()
@@ -490,33 +344,21 @@ function PaymentDetails() {
                         </div>
                       )}
                     <label htmlFor="shippingCountry">Shipping Country</label>
+
                     <CountryDropdown
                       required
                       valueType="short"
-                      handleChange={(event) => handleBilling(event)}
+                      id="shippingCountry"
                       name="shippingCountry"
                       value={values.shippingCountry}
-                      onChange={(value) =>
-                        handleShipping({
-                          target: {
-                            name: "shippingCountry",
-                            value,
-                          },
-                        })
-                      }
+                      onChange={(event, value) => {
+                        handleChange(value);
+                      }}
                       className={
-                        errors.shippingPostalCode && touched.shippingPostalCode
+                        errors.shippingCountry && touched.shippingCountry
                           ? "input text-input error"
                           : "input text-input"
                       }
-                      // onChange={(value) =>
-                      //   handleShipping({
-                      //     target: {
-                      //       name: "country",
-                      //       value,
-                      //     },
-                      //   })
-                      // }
                     />
                     {errors.shippingCountry && touched.shippingCountry && (
                       <div className="input-feedback">
@@ -658,20 +500,14 @@ function PaymentDetails() {
                       handleChange={(event) => handleShipping(event)}
                       name="country"
                       value={values.billingCountry}
-                      onChange={handleChange}
+                      onChange={(event, value) => {
+                        handleChange(value);
+                      }}
                       className={
                         errors.billingPostalCode && touched.billingPostalCode
                           ? "input text-input error"
                           : "input text-input"
                       }
-                      // onChange={(value) =>
-                      //   handleShipping({
-                      //     target: {
-                      //       name: "country",
-                      //       value,
-                      //     },
-                      //   })
-                      // }
                     />
                     {errors.billingCountry && touched.billingCountry && (
                       <div className="input-feedback">

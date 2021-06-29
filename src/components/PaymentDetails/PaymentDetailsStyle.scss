@@ -1,10 +1,13 @@
 .formWrapper {
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 5px 0px rgba(220, 216, 216, 0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(220, 216, 216, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(220, 216, 216, 0.75);
   width: 450px;
   max-width: 100%;
   margin: 0 auto;
+  margin-top: 2rem;
 }
 .payment-form {
   width: 90%;

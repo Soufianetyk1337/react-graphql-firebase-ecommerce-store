@@ -40,10 +40,20 @@
   font-weight: var(--font-bold);
 }
 .navigation__cart {
+  position: relative;
   font-size: 1.5rem;
   margin-right: var(--mb-2);
 }
 .navigation__toggle {
   font-size: 1.5rem;
   cursor: pointer;
+}
+.total-quantity {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  z-index: 100;
+  font-size: 16px;
+  color: #8f50ad;
+  font-weight: bold;
 }

@@ -35,7 +35,7 @@ function Header() {
         >
           <ul className="navigation__list">
             {currentUser && [
-              <li className="navigation__ittem">
+              <li className="navigation__item">
                 <Link to="/cart" className="navigation__link">
                   <i className="bx bx-cart navigation__cart">
                     <span className="total-quantity">{totalQuantity}</span>
