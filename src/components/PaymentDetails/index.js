@@ -184,69 +184,89 @@ function PaymentDetails() {
             nameOnCard,
             recipientName,
           }}
-          onSubmit={async (values) => {}}
+          onSubmit={async (values) => {
+            console.log(values);
+          }}
           validationSchema={Yup.object().shape({
             shippingLine1: Yup.string()
               .required("Required")
-              .min("25", "Shipping Address Must be  at least 25 Digits")
               .matches(
                 /^[#.0-9a-zA-Z\s,-]+$/,
                 "Address Should not have any Special Characters except #"
-              ),
+              )
+              .min("10", "Shipping Address Must be  at least 10 Digits"),
             shippingLine2: Yup.string()
-              .min("25", "Shipping Address Must be  at least 25 Digits")
               .matches(
                 /^[#.0-9a-zA-Z\s,-]+$/,
                 "Address Should not have any Special Characters except #"
-              ),
+              )
+              .min("10", "Shipping Address Must be  at least 10 Digits"),
             shippingCity: Yup.string()
               .required("Required")
-              .min("4", "City should be at least 4 characters")
-              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
+              .matches(
+                /^[a-zA-Z]+( [a-zA-Z]+)*$/,
+                "Only Alphabets and space between words are allowed."
+              )
+              .min("4", "City should be at least 4 characters"),
             shippingState: Yup.string()
               .required("Required")
-              .min("4", "State should be at least 4 characters")
-              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
-            shippingCountry: Yup.string().required("Required"),
+              .matches(
+                /^[a-zA-Z]+( [a-zA-Z]+)*$/,
+                "Only Alphabets and space between words are allowed."
+              )
+              .min("4", "State should be at least 4 characters"),
+
             shippingPostalCode: Yup.string()
               .required("Required")
-              .min("5", "Postal Code Must be exactly 5 Digits")
-              .matches(/[0-9]/, "Postal Code should Only contain numbers."),
+              .matches(/[0-9]/, "Postal Code should Only contain numbers.")
+              .min("5", "Postal Code Must be exactly 5 Digits"),
 
             billingLine1: Yup.string()
               .required("Required")
-              .min("25", "Shipping Address Must be  at least 25 Digits")
               .matches(
                 /^[#.0-9a-zA-Z\s,-]+$/,
                 "Address Should not have any Special Characters except #"
-              ),
+              )
+              .min("25", "Shipping Address Must be  at least 25 Digits"),
             billingLine2: Yup.string()
-              .min("25", "Shipping Address Must be  at least 25 Digits")
               .matches(
                 /^[#.0-9a-zA-Z\s,-]+$/,
                 "Address Should not have any Special Characters except #"
-              ),
+              )
+              .min("25", "Shipping Address Must be  at least 25 Digits"),
             billingCity: Yup.string()
               .required("Required")
-              .min("4", "City should be at least 4 characters")
-              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
+              .matches(
+                /^[a-zA-Z]+( [a-zA-Z]+)*$/,
+                "Only alphabets and one space between words are allowed"
+              )
+              .min("4", "City should be at least 4 characters"),
             billingState: Yup.string()
               .required("Required")
-              .min("4", "State should be at least 4 characters")
-              .matches(/^[a-zA-z]+$/, "Only Alphabets are allowed"),
-            billingCountry: Yup.string().required("Required"),
+              .matches(
+                /^[a-zA-Z]+( [a-zA-Z]+)*$/,
+                "Only alphabets and one space between words are allowed"
+              )
+              .min("4", "State should be at least 4 characters"),
+
             billingPostalCode: Yup.string()
               .required("Required")
-              .min("5", "Postal Code Must be exactly 5 Digits")
-              .matches(/[0-9]/, "Postal Code should Only contain numbers."),
+              .matches(/[0-9]/, "Postal Code should Only contain numbers.")
+              .min("5", "Postal Code Must be exactly 5 Digits"),
             nameOnCard: Yup.string()
               .required("Required")
-              .min("6", "Name on card Should be at least 6 characters")
-              .matches(/^[a-zA-Z]+$/),
+              .matches(
+                /^[a-zA-Z]+( [a-zA-Z]+)*$/,
+                "Only alphabets and one space between words are allowed"
+              )
+              .min("6", "Name on card Should be at least 6 characters"),
             recipientName: Yup.string()
               .required("Required")
-              .min("6", "Name on card Should be at least 6 characters")
-              .matches(/^[a-zA-Z]+$/),
+              .matches(
+                /^[a-zA-Z]+( [a-zA-Z]+)*$/,
+                "Only alphabets and one space between words are allowed"
+              )
+              .min("6", "Recipient name Should be at least 6 characters"),
           })}
         >
           {(props) => {
@@ -338,7 +358,6 @@ function PaymentDetails() {
                       placeholder="Enter your city"
                       type="text"
                       value={values.shippingCity}
-                      handleChange={(event) => handleBilling(event)}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       className={
@@ -570,6 +589,14 @@ function PaymentDetails() {
                       </div>
                     )}
                   </div>
+
+                  <div className="form-group">
+                    <h2>Card Details </h2>
+                    <div className="visa-feedback">
+                      Visa : 4242 4242 4242 4242 08/21 812
+                    </div>
+                    <CardElement options={cardElementProps} />
+                  </div>
                   <button
                     type="button"
                     className="outline"
@@ -581,13 +608,6 @@ function PaymentDetails() {
                   <button type="submit" disabled={isSubmitting}>
                     Pay Now
                   </button>
-                  <div className="form-group">
-                    <h2>Card Details </h2>
-                    <div className="visa-feedback">
-                      Visa : 4242 4242 4242 4242 08/21 812
-                    </div>
-                    <CardElement options={cardElementProps} />
-                  </div>
                   <DisplayFormikState {...props} />
                 </form>
               </>
@@ -595,10 +615,6 @@ function PaymentDetails() {
           }}
         </Formik>
       </div>
-
-      <Button type="submit" onClick={handleFormSubmit}>
-        Pay Now
-      </Button>
     </div>
   );
 }

@@ -37,7 +37,7 @@ function Item(product) {
               className="cartButton"
               onClick={() => handleDecreaseQuantity(product)}
             >
-              <i class="bx bx-minus"></i>{" "}
+              <i className="bx bx-minus"></i>{" "}
             </span>
             <span className="cartQuantity">{quantity}</span>
             <span
@@ -45,7 +45,7 @@ function Item(product) {
               onClick={() => handleIncreaseQuantity(product)}
             >
               {" "}
-              <i class="bx bx-plus"></i>
+              <i className="bx bx-plus"></i>
             </span>
           </td>
           <td>${productPrice}</td>
@@ -54,7 +54,7 @@ function Item(product) {
               className="cartButton"
               onClick={() => handleRemoveItemFromTheCart(documentId)}
             >
-              <i class="bx bx-trash"></i>
+              <i className="bx bx-trash"></i>
             </span>
           </td>
         </tr>
