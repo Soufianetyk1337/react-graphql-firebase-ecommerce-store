@@ -21,15 +21,6 @@ import { saveOrderHistory } from "../../redux/Orders/orderActions";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-const initialAdressState = {
-  line1: "",
-  line2: "",
-  city: "",
-  state: "",
-  postal_code: "",
-  country: "",
-};
-
 const shippingAdressinitialState = {
   shippingLine1: "",
   shippingLine2: "",
@@ -58,12 +49,7 @@ function PaymentDetails() {
   const { totalPrice, quantity, cartItems } = useSelector(mapState);
   const stripe = useStripe();
   const elements = useElements();
-  const [billingAddress, setBillingAddress] = useState({
-    ...billingAdressinitialState,
-  });
-  const [shippingAddress, setShippingAddress] = useState({
-    ...shippingAdressinitialState,
-  });
+
   const [recipientName, setRecipientName] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
   useEffect(() => {
@@ -73,23 +59,41 @@ function PaymentDetails() {
   }, [history, quantity]);
 
   const handleFormSubmit = async (values) => {
+    const {
+      recipientName,
+      nameOnCard,
+      shippingLine1,
+      shippingLine2,
+      shippingCity,
+      shippingState,
+      shippingPostalCode,
+      shippingCountry,
+      billingLine1,
+      billingLine2,
+      billingCity,
+      billingState,
+      billingPostalCode,
+      billingCountry,
+    } = values;
+    const shippingAddress = {
+      line1: shippingLine1,
+      line2: shippingLine2,
+      city: shippingCity,
+      state: shippingState,
+      postal_code: shippingPostalCode,
+      country: shippingCountry,
+    };
+
+    const billingAddress = {
+      line1: billingLine1,
+      line2: billingLine2,
+      city: billingCity,
+      state: billingState,
+      postal_code: billingPostalCode,
+      country: billingCountry,
+    };
+
     const cardElement = elements.getElement(CardElement);
-    if (
-      !shippingAddress.line1 ||
-      !shippingAddress.city ||
-      !shippingAddress.state ||
-      !shippingAddress.postal_code ||
-      !shippingAddress.country ||
-      !billingAddress.line1 ||
-      !billingAddress.city ||
-      !billingAddress.state ||
-      !billingAddress.postal_code ||
-      !billingAddress.country ||
-      !recipientName ||
-      !nameOnCard
-    ) {
-      return;
-    }
     api
       .post("/payments/create", {
         amount: totalPrice * 100,
@@ -144,20 +148,6 @@ function PaymentDetails() {
       });
   };
 
-  const handleShipping = (event) => {
-    const { name, value } = event.target;
-    setShippingAddress({
-      ...shippingAddress,
-      [name]: value,
-    });
-  };
-  const handleBilling = (event) => {
-    const { name, value } = event.target;
-    setBillingAddress({
-      ...billingAddress,
-      [name]: value,
-    });
-  };
   const cardElementProps = {
     iconStyle: "solid",
     style: {
@@ -185,7 +175,7 @@ function PaymentDetails() {
             recipientName,
           }}
           onSubmit={async (values) => {
-            console.log(values);
+            handleFormSubmit(values);
           }}
           validationSchema={Yup.object().shape({
             shippingLine1: Yup.string()
@@ -218,7 +208,7 @@ function PaymentDetails() {
 
             shippingPostalCode: Yup.string()
               .required("Required")
-              .matches(/[0-9]/, "Postal Code should Only contain numbers.")
+              .matches(/^[0-9]*$/, "Postal Code should Only contain numbers.")
               .min("5", "Postal Code Must be exactly 5 Digits"),
 
             billingLine1: Yup.string()
@@ -251,7 +241,7 @@ function PaymentDetails() {
 
             billingPostalCode: Yup.string()
               .required("Required")
-              .matches(/[0-9]/, "Postal Code should Only contain numbers.")
+              .matches(/^[0-9]*$/, "Postal Code should Only contain numbers.")
               .min("5", "Postal Code Must be exactly 5 Digits"),
             nameOnCard: Yup.string()
               .required("Required")

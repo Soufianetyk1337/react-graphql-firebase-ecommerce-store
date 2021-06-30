@@ -12,8 +12,6 @@ function Order() {
   const dispatch = useDispatch();
   const { orderDetails } = useSelector(mapState);
   const orderTotal = orderDetails.orderTotal;
-  console.log(`orderDetails`, orderDetails);
-  console.log(`orderTotal`, orderTotal);
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId]);

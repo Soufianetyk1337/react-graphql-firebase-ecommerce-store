@@ -33,10 +33,8 @@ app.post("/payments/create", async (req, res) => {
       amount,
       currency: "usd",
     });
-    console.log(`paymentIntent`, paymentIntent);
     res.send(paymentIntent.client_secret);
   } catch (error) {
-    console.log(`Error.message`, error.message);
     res.status(500).json({
       statusCode: 500,
       error: error.message,

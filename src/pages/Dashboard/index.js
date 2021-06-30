@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-//import "./style.scss";
+import "./style.scss";
 import { useEffect } from "react";
 import { getUserOrderHistory } from "../../redux/Orders/orderActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +20,7 @@ function Dashboard() {
   return (
     <div>
       <h1>Order History</h1>
+
       <OrderHistory orders={orders} />
     </div>
   );
