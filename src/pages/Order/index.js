@@ -19,7 +19,6 @@ function Order() {
     <div>
       <h1>Order ID:#{orderId}</h1>
       <OrderDetails order={orderDetails} />
-      <h3>Total : {orderTotal}</h3>
     </div>
   );
 }

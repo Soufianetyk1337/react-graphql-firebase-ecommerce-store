@@ -49,7 +49,6 @@ function OrderHistory({ orders }) {
       {Array.isArray(orders) &&
         orders.length > 0 &&
         orders.map((row, index) => {
-          console.log(row);
           const { documentId, order_created_at, orderTotal, orderItems } = row;
           return (
             <>
@@ -76,10 +75,7 @@ function OrderHistory({ orders }) {
                     <span className="title">Items: </span> {orderItems.length}
                   </p>
                   <div className="bottom">
-                    <a
-                      href="#"
-                      onClick={() => history.push(`/order/${documentId}`)}
-                    >
+                    <a onClick={() => history.push(`/order/${documentId}`)}>
                       Order Details
                     </a>
                   </div>
