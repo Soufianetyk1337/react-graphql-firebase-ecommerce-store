@@ -9,7 +9,7 @@ let cors_options = {
 const express = require("express");
 const cors = require("cors")(cors_options);
 const stripe = require("stripe")(
-  process.env.STRIPE_KEY
+  process.env.STRIPE_SECRET_KEY
 );
 const consola = require("consola");
 const volleyball = require("volleyball");
